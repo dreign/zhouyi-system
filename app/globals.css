@@ -2,32 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: 'ZCOOL KuaiLe';
+  src: url('https://fonts.gstatic.com/s/zcoolkuaile/v15/NaPecZTRCLxvwo41b4gvzkXadMT0.woff2') format('woff2');
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: 'Ma Shan Zheng';
+  src: url('https://fonts.gstatic.com/s/mashanzheng/v10/NaPecZTRCLxvwo41b4gvzkXaMHT0.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --ancient-gold: #c9a962;
+  --ancient-red: #8b2500;
+  --ancient-brown: #3d2914;
+  --ancient-cream: #f5f0e6;
+  --ancient-dark: #1a140a;
+  --ink-black: #0d0d0d;
+  --paper-bg: #faf5e8;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', serif;
+  background: linear-gradient(135deg, #faf5e8 0%, #e8dfc4 50%, #d4c8a0 100%);
+  min-height: 100vh;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-shadow-ancient {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
+  
+  .border-gold {
+    border-color: #c9a962;
+  }
+  
+  .bg-paper {
+    background: linear-gradient(145deg, #faf5e8, #e8dfc4);
+  }
+  
+  .bg-ancient-dark {
+    background: linear-gradient(145deg, #2a1f10, #1a140a);
+  }
+  
+  .gradient-gold {
+    background: linear-gradient(135deg, #c9a962, #a68b3d);
+  }
+  
+  .shimmer {
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .rotate-slow {
+    animation: rotateSlow 30s linear infinite;
+  }
+  
+  .pulse-gentle {
+    animation: pulseGentle 4s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseGentle {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.02); opacity: 1; }
+}
+
+.cloud-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 50 Q30 30 50 35 Q70 40 80 50 Q70 60 50 55 Q30 50 20 50' fill='none' stroke='%23c9a962' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 150px 150px;
+}
+
+.gold-border {
+  border: 2px solid #c9a962;
+  box-shadow: inset 0 0 20px rgba(201, 169, 98, 0.1);
+}
+
+.ancient-card {
+  background: linear-gradient(145deg, #faf5e8, #e8dfc4);
+  border: 1px solid #c9a962;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    inset 0 0 30px rgba(201, 169, 98, 0.05);
+}
+
+.taiji-bg {
+  background-image: radial-gradient(circle at 30% 30%, rgba(0,0,0,0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 70%, rgba(0,0,0,0.03) 0%, transparent 40%);
 }

@@ -1,0 +1,80 @@
+// This is your Prisma schema file
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?  @unique
+  phone     String?  @unique
+  password  String?
+  avatar    String?
+  language  String   @default("zh-CN")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  divinationRecords DivinationRecord[]
+  subscription      Subscription?
+
+  @@map("users")
+}
+
+model DivinationRecord {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  type      String
+  inputData String   @map("input_data")
+  result    String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("divination_records")
+}
+
+model GuaData {
+  id             Int     @id @default(autoincrement())
+  code           String  @unique
+  name           String
+  fullName       String  @map("full_name")
+  summary        String?
+  guaci          String?
+  yaoci          String?
+  interpretation String?
+
+  @@map("gua_data")
+}
+
+model CharacterData {
+  id           Int     @id @default(autoincrement())
+  char         String  @unique
+  stroke       Int
+  pinyin       String?
+  wuxing       String?
+  kangxiStroke Int?    @map("kangxi_stroke")
+
+  @@map("character_data")
+}
+
+model Subscription {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @unique @map("user_id")
+  plan      String
+  status    String
+  startAt   DateTime  @map("start_at")
+  endAt     DateTime? @map("end_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("subscriptions")
+}
