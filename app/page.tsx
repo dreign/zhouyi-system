@@ -99,7 +99,7 @@ export default function Home() {
         </div>
       </div>
 
-      <header className="relative z-10 bg-ancient-dark py-12 border-b-4 border-[#c9a962]">
+      <header className="relative z-10 bg-ancient-dark pt-20 pb-12 border-b-4 border-[#c9a962]">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-6 mb-4">
             <div className="w-16 h-16 rotate-slow">
@@ -386,6 +386,7 @@ export default function Home() {
           </div>
           <p className="text-[#d4c8a0]/70 mb-2">传承千年智慧 · 融合现代科技</p>
           <p className="text-[#5a4520] text-sm">© 2026 周易命理系统 | 易经智慧 · 启迪人生</p>
+          <p className="text-[#5a4520] text-sm mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
           <div className="flex items-center justify-center gap-6 mt-4 text-xs text-[#5a4520]">
             <span>☰ 乾</span>
             <span>☷ 坤</span>

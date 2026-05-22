@@ -100,7 +100,9 @@ body {
 }
 
 .ancient-card {
-  background: linear-gradient(145deg, #faf5e8, #e8dfc4);
+  background: url('/img/bian_bg.png') top right no-repeat,
+              linear-gradient(145deg, #faf5e8, #e8dfc4);
+  background-size: auto, cover;
   border: 1px solid #c9a962;
   box-shadow: 
     0 4px 6px rgba(0, 0, 0, 0.1),

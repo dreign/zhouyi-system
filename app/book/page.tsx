@@ -191,6 +191,7 @@ export default function BookPage() {
           <p className="text-sm text-[#8b7355]">
             传承千年智慧 · 探索人生奥秘
           </p>
+          <p className="text-sm text-[#8b7355] mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
         </div>
       </footer>
     </div>

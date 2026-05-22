@@ -172,7 +172,7 @@ export default function ZiweiPage() {
 
   return (
     <div className="min-h-screen bg-paper taiji-bg">
-      <header className="relative z-10 bg-ancient-dark py-10 border-b-4 border-[#c9a962]">
+      <header className="relative z-10 bg-ancient-dark pt-20 pb-10 border-b-4 border-[#c9a962]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-center gap-4">
             <div className="w-16 h-16 rotate-slow">
@@ -296,6 +296,7 @@ export default function ZiweiPage() {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-[#d4c8a0]/70">© 2026 周易命理系统 · 传承千年智慧，启迪人生智慧</p>
           <p className="text-[#5a4520] text-sm mt-2">本系统仅供娱乐参考，请勿过分迷信</p>
+          <p className="text-[#5a4520] text-sm mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
         </div>
       </footer>
     </div>
