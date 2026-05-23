@@ -1,17 +1,8 @@
-import Link from 'next/link';
+'use client';
 
-const NavLink = ({ href, label, active }: { href: string; label: string; active?: boolean }) => (
-  <Link 
-    href={href}
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      active 
-        ? 'bg-[#c9a962]/20 text-[#c9a962] border border-[#c9a962]/50' 
-        : 'text-[#d4c8a0] hover:text-[#c9a962] hover:bg-[#c9a962]/10'
-    }`}
-  >
-    {label}
-  </Link>
-);
+import Link from 'next/link';
+import { useTranslations } from '@/lib/i18n';
+import Navigation from '@/components/Navigation';
 
 const TaiChiIcon = () => (
   <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -36,16 +27,16 @@ const BaguaSymbol = ({ trigram }: { trigram: string }) => (
 
 const CloudDecoration = () => (
   <svg viewBox="0 0 200 100" className="w-full h-full opacity-40">
-    <path 
-      d="M20 60 Q40 20 70 35 Q100 50 130 30 Q160 10 180 40 Q170 70 140 60 Q110 50 80 65 Q50 80 20 60" 
-      fill="none" 
-      stroke="#c9a962" 
+    <path
+      d="M20 60 Q40 20 70 35 Q100 50 130 30 Q160 10 180 40 Q170 70 140 60 Q110 50 80 65 Q50 80 20 60"
+      fill="none"
+      stroke="#c9a962"
       strokeWidth="1"
     />
-    <path 
-      d="M10 80 Q30 50 60 60 Q90 70 120 55 Q150 40 170 65 Q160 90 130 85 Q100 80 70 90 Q40 100 10 80" 
-      fill="none" 
-      stroke="#c9a962" 
+    <path
+      d="M10 80 Q30 50 60 60 Q90 70 120 55 Q150 40 170 65 Q160 90 130 85 Q100 80 70 90 Q40 100 10 80"
+      fill="none"
+      stroke="#c9a962"
       strokeWidth="0.8"
     />
   </svg>
@@ -53,10 +44,10 @@ const CloudDecoration = () => (
 
 const DragonDecoration = () => (
   <svg viewBox="0 0 150 80" className="w-full h-full opacity-30">
-    <path 
-      d="M10 40 Q30 20 50 35 Q70 50 90 30 Q110 10 130 25 Q140 35 145 40 Q140 50 120 45 Q100 40 80 55 Q60 70 40 50 Q20 35 10 40" 
-      fill="none" 
-      stroke="#8b2500" 
+    <path
+      d="M10 40 Q30 20 50 35 Q70 50 90 30 Q110 10 130 25 Q140 35 145 40 Q140 50 120 45 Q100 40 80 55 Q60 70 40 50 Q20 35 10 40"
+      fill="none"
+      stroke="#8b2500"
       strokeWidth="1.5"
     />
     <circle cx="140" cy="30" r="8" fill="none" stroke="#8b2500" strokeWidth="1"/>
@@ -78,7 +69,9 @@ const TaotieMask = () => (
   </svg>
 );
 
-export default function Home() {
+function HomeContent() {
+  const { t } = useTranslations();
+
   return (
     <div className="min-h-screen bg-paper taiji-bg relative overflow-hidden">
       <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
@@ -106,52 +99,32 @@ export default function Home() {
               <TaiChiIcon />
             </div>
             <h1 className="text-5xl font-bold text-[#c9a962] text-shadow-ancient tracking-widest">
-              周易命理系统
+              {t('home.title')}
             </h1>
             <div className="w-16 h-16 rotate-slow" style={{ animationDirection: 'reverse' }}>
               <TaiChiIcon />
             </div>
           </div>
           <p className="text-[#d4c8a0] text-lg tracking-wider">
-            传承千年智慧 · 探索人生奥秘
+            {t('home.subtitle')}
           </p>
           <div className="flex items-center justify-center gap-4 mt-4">
             <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#c9a962] to-transparent"></div>
-            <span className="text-[#c9a962] text-sm tracking-widest">☯ 太极生两仪 · 两仪生四象 · 四象生八卦 ☯</span>
+            <span className="text-[#c9a962] text-sm tracking-widest">{t('home.tao')}</span>
             <div className="w-20 h-px bg-gradient-to-r from-transparent via-[#c9a962] to-transparent"></div>
           </div>
         </div>
       </header>
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a140a]/95 backdrop-blur-md border-b border-[#c9a962]/30 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border-2 border-[#c9a962] flex items-center justify-center bg-[#2a1f10]">
-                <span className="text-[#c9a962] text-xl">☯</span>
-              </div>
-              <span className="text-[#c9a962] font-bold text-lg tracking-wider">周易智慧</span>
-            </div>
-            
-            <div className="flex items-center gap-6">
-              <NavLink href="/" label="首页" />
-              <NavLink href="/yi" label="易经占卜" />
-              <NavLink href="/bazi" label="八字命理" />
-              <NavLink href="/ziwei" label="紫微斗数" />
-              <NavLink href="/name" label="姓名分析" />
-              <NavLink href="/book" label="周易全书" active />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       <main className="relative z-10 max-w-7xl mx-auto px-4 py-16">
         <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#3d2914] tracking-wider mb-2">
-              <span className="text-[#c9a962]">☯</span> 命理大道 <span className="text-[#c9a962]">☯</span>
+              <span className="text-[#c9a962]">☯</span> {t('home.sections.fortune')} <span className="text-[#c9a962]">☯</span>
             </h2>
-            <p className="text-[#5a4520] text-lg">仰观天文 · 俯察地理 · 中通人事</p>
+            <p className="text-[#5a4520] text-lg">{t('home.philosophy')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -162,17 +135,11 @@ export default function Home() {
                     <TaiChiIcon />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">易经占卜</h3>
-                <p className="text-[#5a4520] leading-relaxed">
-                  观变于阴阳而立卦 · 发挥于刚柔而生爻
-                </p>
+                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">{t('home.yi.title')}</h3>
+                <p className="text-[#5a4520] leading-relaxed">{t('home.yi.description')}</p>
                 <div className="mt-4 flex justify-center gap-2">
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☰" />
-                  </div>
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☷" />
-                  </div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☰" /></div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☷" /></div>
                 </div>
               </div>
             </Link>
@@ -182,17 +149,11 @@ export default function Home() {
                 <div className="w-20 h-20 mx-auto mb-6 bg-[#3d2914] rounded-full flex items-center justify-center border-2 border-[#c9a962]">
                   <span className="text-3xl text-[#c9a962] font-bold">四柱</span>
                 </div>
-                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">八字命理</h3>
-                <p className="text-[#5a4520] leading-relaxed">
-                  年月日时定乾坤 · 天干地支演人生
-                </p>
+                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">{t('home.bazi.title')}</h3>
+                <p className="text-[#5a4520] leading-relaxed">{t('home.bazi.description')}</p>
                 <div className="mt-4 flex justify-center gap-2">
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☲" />
-                  </div>
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☵" />
-                  </div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☲" /></div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☵" /></div>
                 </div>
               </div>
             </Link>
@@ -202,17 +163,11 @@ export default function Home() {
                 <div className="w-20 h-20 mx-auto mb-6 bg-[#1a140a] rounded-full flex items-center justify-center border-2 border-[#c9a962] pulse-gentle">
                   <span className="text-3xl text-[#c9a962] font-bold">紫微</span>
                 </div>
-                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">紫微斗数</h3>
-                <p className="text-[#5a4520] leading-relaxed">
-                  星曜排布定格局 · 十二宫位断吉凶
-                </p>
+                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">{t('home.ziwei.title')}</h3>
+                <p className="text-[#5a4520] leading-relaxed">{t('home.ziwei.description')}</p>
                 <div className="mt-4 flex justify-center gap-2">
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☱" />
-                  </div>
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☶" />
-                  </div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☱" /></div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☶" /></div>
                 </div>
               </div>
             </Link>
@@ -222,31 +177,22 @@ export default function Home() {
                 <div className="w-20 h-20 mx-auto mb-6 bg-[#8b2500] rounded-full flex items-center justify-center border-2 border-[#c9a962]">
                   <span className="text-3xl text-[#faf5e8] font-bold">姓名</span>
                 </div>
-                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">姓名分析</h3>
-                <p className="text-[#5a4520] leading-relaxed">
-                  音形义理藏玄机 · 五行生克定吉凶
-                </p>
+                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">{t('home.name.title')}</h3>
+                <p className="text-[#5a4520] leading-relaxed">{t('home.name.description')}</p>
                 <div className="mt-4 flex justify-center gap-2">
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☴" />
-                  </div>
-                  <div className="w-8 h-8">
-                    <BaguaSymbol trigram="☳" />
-                  </div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☴" /></div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☳" /></div>
                 </div>
               </div>
             </Link>
-
-            </div>
+          </div>
         </section>
 
         <section className="mb-16">
           <div className="bg-[#2a1f10]/80 rounded-xl p-8 border border-[#c9a962]/30">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-[#c9a962] tracking-wider mb-2">
-                八卦方位图
-              </h2>
-              <p className="text-[#d4c8a0]/70">天地定位 · 山泽通气 · 雷风相薄 · 水火不相射</p>
+              <h2 className="text-2xl font-bold text-[#c9a962] tracking-wider mb-2">{t('home.bagua.title')}</h2>
+              <p className="text-[#d4c8a0]/70">{t('home.bagua.subtitle')}</p>
             </div>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
               <div></div>
@@ -270,11 +216,11 @@ export default function Home() {
                 <BaguaSymbol trigram="☲" />
               </div>
               <div className="aspect-square bg-[#1a140a] rounded-lg border border-[#c9a962]/50 flex items-center justify-center">
-                <BaguaSymbol trigram="☷" />
+                <BaguaSymbol trigram="☶" />
               </div>
               <div></div>
               <div className="aspect-square bg-[#1a140a] rounded-lg border border-[#c9a962]/50 flex items-center justify-center">
-                <BaguaSymbol trigram="☶" />
+                <BaguaSymbol trigram="☷" />
               </div>
               <div></div>
               <div className="aspect-square bg-[#1a140a] rounded-lg border border-[#c9a962]/50 flex items-center justify-center">
@@ -283,18 +229,18 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mt-2 text-center text-xs text-[#c9a962]/60">
               <div></div>
-              <div>乾 · 天</div>
+              <div>{t('home.bagua.positions.qian')}</div>
               <div></div>
-              <div>震 · 雷</div>
+              <div>{t('home.bagua.positions.zhen')}</div>
               <div>太极</div>
-              <div>巽 · 风</div>
-              <div>坎 · 水</div>
-              <div>离 · 火</div>
-              <div>艮 · 山</div>
+              <div>{t('home.bagua.positions.xun')}</div>
+              <div>{t('home.bagua.positions.kan')}</div>
+              <div>{t('home.bagua.positions.li')}</div>
+              <div>{t('home.bagua.positions.gen')}</div>
               <div></div>
-              <div>坤 · 地</div>
+              <div>{t('home.bagua.positions.kun')}</div>
               <div></div>
-              <div>兑 · 泽</div>
+              <div>{t('home.bagua.positions.dui')}</div>
             </div>
           </div>
         </section>
@@ -302,7 +248,7 @@ export default function Home() {
         <section className="mb-16">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-[#3d2914] tracking-wider mb-2">
-              <span className="text-[#c9a962]">✦</span> 传统文化智慧 <span className="text-[#c9a962]">✦</span>
+              <span className="text-[#c9a962]">✦</span> {t('home.sections.features')} <span className="text-[#c9a962]">✦</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -310,64 +256,58 @@ export default function Home() {
               <div className="w-16 h-16 mx-auto mb-4 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-3xl text-[#c9a962]">☯</span>
               </div>
-              <h4 className="font-bold text-[#3d2914] text-lg mb-2">易经占卜</h4>
-              <p className="text-[#5a4520] text-sm leading-relaxed">
-                《周易》群经之首，通过六十四卦揭示宇宙变化规律，推演吉凶祸福
-              </p>
+              <h4 className="font-bold text-[#3d2914] text-lg mb-2">{t('home.yi.title')}</h4>
+              <p className="text-[#5a4520] text-sm leading-relaxed">《周易》群经之首，通过六十四卦揭示宇宙变化规律，推演吉凶祸福</p>
             </div>
             <div className="ancient-card rounded-xl p-6 text-center">
               <div className="w-16 h-16 mx-auto mb-4 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-3xl text-[#c9a962]">⭐</span>
               </div>
-              <h4 className="font-bold text-[#3d2914] text-lg mb-2">紫微斗数</h4>
-              <p className="text-[#5a4520] text-sm leading-relaxed">
-                五星四余十二宫，星曜排布定人生，洞察命运起伏与格局走向
-              </p>
+              <h4 className="font-bold text-[#3d2914] text-lg mb-2">{t('home.ziwei.title')}</h4>
+              <p className="text-[#5a4520] text-sm leading-relaxed">五星四余十二宫，星曜排布定人生，洞察命运起伏与格局走向</p>
             </div>
             <div className="ancient-card rounded-xl p-6 text-center">
               <div className="w-16 h-16 mx-auto mb-4 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-3xl text-[#c9a962]">📊</span>
               </div>
-              <h4 className="font-bold text-[#3d2914] text-lg mb-2">八字命理</h4>
-              <p className="text-[#5a4520] text-sm leading-relaxed">
-                年月日时四柱八字，天干地支定乾坤，解读人生轨迹与发展方向
-              </p>
+              <h4 className="font-bold text-[#3d2914] text-lg mb-2">{t('home.bazi.title')}</h4>
+              <p className="text-[#5a4520] text-sm leading-relaxed">年月日时四柱八字，天干地支定乾坤，解读人生轨迹与发展方向</p>
             </div>
           </div>
         </section>
 
         <section className="ancient-card rounded-xl p-8">
           <h3 className="text-2xl font-bold text-[#3d2914] text-center mb-6 tracking-wider">
-            <span className="text-[#c9a962]">◇</span> 功能特点 <span className="text-[#c9a962]">◇</span>
+            <span className="text-[#c9a962]">◇</span> {t('home.sections.advantages')} <span className="text-[#c9a962]">◇</span>
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center p-4">
               <div className="w-14 h-14 mx-auto mb-3 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-xl text-[#c9a962]">🧮</span>
               </div>
-              <h4 className="font-medium text-[#3d2914] mb-1">精准排盘</h4>
-              <p className="text-[#5a4520] text-sm">精确的命理计算引擎</p>
+              <h4 className="font-medium text-[#3d2914] mb-1">{t('home.advantages.charting')}</h4>
+              <p className="text-[#5a4520] text-sm">{t('home.advantages.chartingDesc')}</p>
             </div>
             <div className="text-center p-4">
               <div className="w-14 h-14 mx-auto mb-3 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-xl text-[#c9a962]">💾</span>
               </div>
-              <h4 className="font-medium text-[#3d2914] mb-1">数据持久化</h4>
-              <p className="text-[#5a4520] text-sm">案例数据本地存储</p>
+              <h4 className="font-medium text-[#3d2914] mb-1">{t('home.advantages.storage')}</h4>
+              <p className="text-[#5a4520] text-sm">{t('home.advantages.storageDesc')}</p>
             </div>
             <div className="text-center p-4">
               <div className="w-14 h-14 mx-auto mb-3 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-xl text-[#c9a962]">🤖</span>
               </div>
-              <h4 className="font-medium text-[#3d2914] mb-1">AI分析</h4>
-              <p className="text-[#5a4520] text-sm">支持AI友好数据导出</p>
+              <h4 className="font-medium text-[#3d2914] mb-1">{t('home.advantages.ai')}</h4>
+              <p className="text-[#5a4520] text-sm">{t('home.advantages.aiDesc')}</p>
             </div>
             <div className="text-center p-4">
               <div className="w-14 h-14 mx-auto mb-3 bg-[#3d2914] rounded-full flex items-center justify-center border border-[#c9a962]">
                 <span className="text-xl text-[#c9a962]">📱</span>
               </div>
-              <h4 className="font-medium text-[#3d2914] mb-1">响应式设计</h4>
-              <p className="text-[#5a4520] text-sm">多设备完美适配</p>
+              <h4 className="font-medium text-[#3d2914] mb-1">{t('home.advantages.responsive')}</h4>
+              <p className="text-[#5a4520] text-sm">{t('home.advantages.responsiveDesc')}</p>
             </div>
           </div>
         </section>
@@ -379,14 +319,14 @@ export default function Home() {
             <div className="w-12 h-12 rotate-slow opacity-60">
               <TaiChiIcon />
             </div>
-            <h3 className="text-xl text-[#c9a962] tracking-widest">周易命理系统</h3>
+            <h3 className="text-xl text-[#c9a962] tracking-widest">{t('common.systemName')}</h3>
             <div className="w-12 h-12 rotate-slow opacity-60" style={{ animationDirection: 'reverse' }}>
               <TaiChiIcon />
             </div>
           </div>
-          <p className="text-[#d4c8a0]/70 mb-2">传承千年智慧 · 融合现代科技</p>
-          <p className="text-[#5a4520] text-sm">© 2026 周易命理系统 | 易经智慧 · 启迪人生</p>
-          <p className="text-[#5a4520] text-sm mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
+          <p className="text-[#d4c8a0]/70 mb-2">{t('common.footer.tagline')}</p>
+          <p className="text-[#5a4520] text-sm">{t('common.footer.copyright')} | 易经智慧 · 启迪人生</p>
+          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
           <div className="flex items-center justify-center gap-6 mt-4 text-xs text-[#5a4520]">
             <span>☰ 乾</span>
             <span>☷ 坤</span>
@@ -401,4 +341,8 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export default function Home() {
+  return <HomeContent />;
 }

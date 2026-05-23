@@ -1,18 +1,18 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
+import { useTranslations } from '@/lib/i18n';
+import Navigation from '@/components/Navigation';
 
-const NavLink = ({ href, label, active }: { href: string; label: string; active?: boolean }) => (
-  <Link 
-    href={href}
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      active 
-        ? 'bg-[#c9a962]/20 text-[#c9a962] border border-[#c9a962]/50' 
-        : 'text-[#d4c8a0] hover:text-[#c9a962] hover:bg-[#c9a962]/10'
-    }`}
-  >
-    {label}
-  </Link>
+const TaiChiIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full">
+    <circle cx="50" cy="50" r="48" fill="none" stroke="#1a140a" strokeWidth="2"/>
+    <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2" fill="#1a140a"/>
+    <path d="M50 2 A48 48 0 0 0 50 98 A24 24 0 0 0 50 50 A24 24 0 0 1 50 2" fill="#faf5e8"/>
+    <circle cx="50" cy="26" r="8" fill="#faf5e8"/>
+    <circle cx="50" cy="74" r="8" fill="#1a140a"/>
+    <circle cx="50" cy="26" r="2" fill="#1a140a"/>
+    <circle cx="50" cy="74" r="2" fill="#faf5e8"/>
+  </svg>
 );
 
 interface YaInfo {
@@ -46,7 +46,7 @@ const getFortuneLevel = (guaCode: string): FortuneResult => {
   const goodGuas = ['111111', '000111', '111101', '011011', '101101', '011001', '110001', '011101'];
   const mediumGuas = ['000000', '111011', '010101', '101010', '011110', '101110'];
   const badGuas = ['111000', '010010', '100000'];
-  
+
   if (goodGuas.includes(guaCode)) {
     return {
       level: '吉',
@@ -76,27 +76,27 @@ const getFortuneLevel = (guaCode: string): FortuneResult => {
 
 const getQuestionAdvice = (question: string, guaName: string): string => {
   const questionLower = question.toLowerCase();
-  
+
   if (questionLower.includes('事业') || questionLower.includes('工作') || questionLower.includes('职场')) {
     return `关于事业方面，${guaName}卦提示您：要像龙一样不断进取，但也要懂得把握时机。建议您保持专业能力的提升，与同事保持良好关系，抓住展示自己的机会。`;
   }
-  
+
   if (questionLower.includes('感情') || questionLower.includes('婚姻') || questionLower.includes('恋爱')) {
     return `关于感情方面，${guaName}卦告诉您：感情需要双方的共同努力和相互理解。建议您多与对方沟通，保持真诚和包容，缘分到了自然会有好结果。`;
   }
-  
+
   if (questionLower.includes('财运') || questionLower.includes('投资') || questionLower.includes('赚钱')) {
     return `关于财运方面，${guaName}卦提醒您：财富需要慢慢积累，不要急于求成。建议您谨慎投资，做好风险评估，不要贪多求大。`;
   }
-  
+
   if (questionLower.includes('健康') || questionLower.includes('身体')) {
     return `关于健康方面，${guaName}卦提示您：身体是革命的本钱，要注意劳逸结合。建议您保持规律作息，适当运动，关注身体发出的信号。`;
   }
-  
+
   if (questionLower.includes('考试') || questionLower.includes('学业') || questionLower.includes('学习')) {
     return `关于学业方面，${guaName}卦告诉您：一分耕耘一分收获，天道酬勤。建议您制定学习计划，保持专注，相信付出总会有回报。`;
   }
-  
+
   return `综合来看，${guaName}卦提示您要保持积极乐观的心态，坚守正道，自然会迎来好的结果。`;
 };
 
@@ -107,19 +107,8 @@ interface DivinationResult {
   yaos: YaInfo[];
 }
 
-const TaiChiIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-full h-full">
-    <circle cx="50" cy="50" r="48" fill="none" stroke="#1a140a" strokeWidth="2"/>
-    <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2" fill="#1a140a"/>
-    <path d="M50 2 A48 48 0 0 0 50 98 A24 24 0 0 0 50 50 A24 24 0 0 1 50 2" fill="#faf5e8"/>
-    <circle cx="50" cy="26" r="8" fill="#faf5e8"/>
-    <circle cx="50" cy="74" r="8" fill="#1a140a"/>
-    <circle cx="50" cy="26" r="2" fill="#1a140a"/>
-    <circle cx="50" cy="74" r="2" fill="#faf5e8"/>
-  </svg>
-);
-
 export default function YiPage() {
+  const { t } = useTranslations();
   const [question, setQuestion] = useState('');
   const [method, setMethod] = useState<'random' | 'coins' | 'number'>('random');
   const [numbers, setNumbers] = useState('');
@@ -129,9 +118,9 @@ export default function YiPage() {
 
   const handleDivine = async () => {
     setLoading(true);
-    
+
     const parsedNumbers = numbers ? numbers.split(',').map(n => parseInt(n.trim())) : undefined;
-    
+
     const response = await fetch('/api/yi/divine', {
       method: 'POST',
       headers: {
@@ -143,13 +132,13 @@ export default function YiPage() {
         question
       })
     });
-    
+
     const data = await response.json();
-    
+
     if (data.success) {
       setResult(data.data);
     }
-    
+
     setLoading(false);
   };
 
@@ -167,7 +156,7 @@ export default function YiPage() {
 
   const renderGua = (guaInfo: GuaInfo, title: string, showFortune = true) => {
     const fortune = getFortuneLevel(guaInfo.code);
-    
+
     return (
       <div className="ancient-card rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
@@ -178,7 +167,7 @@ export default function YiPage() {
             </span>
           )}
         </div>
-        
+
         <div className="flex justify-center mb-4">
           <div className="relative">
             <div className="w-40 h-40 rounded-lg border-4 border-[#c9a962] flex items-center justify-center bg-gradient-to-br from-[#1a140a] to-[#2d2110] shadow-xl">
@@ -187,7 +176,7 @@ export default function YiPage() {
                 <div className="text-[#c9a962] text-sm mt-2 font-serif">{guaInfo.name}</div>
               </div>
             </div>
-            
+
             <div className="absolute -right-24 top-1/2 -translate-y-1/2 space-y-2">
               {guaInfo.code.split('').reverse().map((bit, index) => (
                 <div key={index} className={`text-2xl font-serif ${bit === '1' ? 'text-[#8b2500]' : 'text-blue-700'}`}>
@@ -195,7 +184,7 @@ export default function YiPage() {
                 </div>
               ))}
             </div>
-            
+
             <div className="absolute -left-8 top-1/2 -translate-y-1/2 space-y-1">
               {['上', '五', '四', '三', '二', '初'].map((label, index) => (
                 <div key={index} className="text-xs text-[#3d2914]/60 w-6 text-right">
@@ -205,41 +194,41 @@ export default function YiPage() {
             </div>
           </div>
         </div>
-        
+
         {guaInfo.guaci && (
           <div className="bg-[#c9a962]/10 rounded-lg p-4 mb-4 border border-[#c9a962]/30">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[#c9a962] text-lg">📜</span>
-              <span className="text-[#3d2914] font-semibold">卦辞原文</span>
+              <span className="text-[#3d2914] font-semibold">{t('yi.interpretation.original')}</span>
             </div>
             <p className="text-[#3d2914] text-lg">{guaInfo.guaci}</p>
           </div>
         )}
-        
+
         {guaInfo.vernacular && (
           <div className="bg-green-50/50 rounded-lg p-4 mb-4 border border-green-300/50">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-green-600 text-lg">💬</span>
-              <span className="text-green-800 font-semibold">大白话解释</span>
-              <span className="text-xs text-green-600">（让您一听就懂）</span>
+              <span className="text-green-800 font-semibold">{t('yi.interpretation.vernacular')}</span>
+              <span className="text-xs text-green-600">{t('yi.interpretation.vernacularHint')}</span>
             </div>
             <p className="text-[#3d2914] leading-relaxed">{guaInfo.vernacular}</p>
           </div>
         )}
-        
+
         <div className="bg-[#1a140a]/5 rounded-lg p-4 mb-4 border border-[#3d2914]/20">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[#c9a962] text-lg">✨</span>
-            <span className="text-[#3d2914] font-semibold">深层含义</span>
-          </div>
+              <span className="text-[#c9a962] text-lg">✨</span>
+              <span className="text-[#3d2914] font-semibold">{t('yi.interpretation.deepMeaning')}</span>
+            </div>
           <p className="text-[#3d2914] leading-relaxed">{guaInfo.interpretation || guaInfo.summary}</p>
         </div>
-        
+
         {showFortune && fortune.advice && fortune.advice.length > 0 && (
           <div className="bg-blue-50/50 rounded-lg p-4 border border-blue-300/50">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-blue-600 text-lg">💡</span>
-              <span className="text-blue-800 font-semibold">行动建议</span>
+              <span className="text-blue-800 font-semibold">{t('yi.interpretation.advice')}</span>
             </div>
             <ul className="space-y-2">
               {fortune.advice.map((item, index) => (
@@ -264,53 +253,33 @@ export default function YiPage() {
               <TaiChiIcon />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-[#c9a962] tracking-widest">易经占卜</h1>
-              <p className="text-[#d4c8a0] mt-2 tracking-wider">探索六十四卦的智慧</p>
+              <h1 className="text-4xl font-bold text-[#c9a962] tracking-widest">{t('yi.title')}</h1>
+              <p className="text-[#d4c8a0] mt-2 tracking-wider">{t('yi.subtitle')}</p>
             </div>
           </div>
         </div>
       </header>
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a140a]/95 backdrop-blur-md border-b border-[#c9a962]/30 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border-2 border-[#c9a962] flex items-center justify-center bg-[#2a1f10]">
-                <span className="text-[#c9a962] text-xl">☯</span>
-              </div>
-              <span className="text-[#c9a962] font-bold text-lg tracking-wider">周易智慧</span>
-            </div>
-            
-            <div className="flex items-center gap-6">
-              <NavLink href="/" label="首页" />
-              <NavLink href="/yi" label="易经占卜" active />
-              <NavLink href="/bazi" label="八字命理" />
-              <NavLink href="/ziwei" label="紫微斗数" />
-              <NavLink href="/name" label="姓名分析" />
-              <NavLink href="/book" label="周易全书" />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation activePath="/yi" />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {!result && (
           <div className="ancient-card rounded-xl p-8 mb-8">
-            <h2 className="text-2xl font-bold text-[#3d2914] mb-6 text-center tracking-wider">开始占卜</h2>
-            
+            <h2 className="text-2xl font-bold text-[#3d2914] mb-6 text-center tracking-wider">{t('yi.startDivination')}</h2>
+
             <div className="mb-6">
-              <label className="block text-[#3d2914] font-semibold mb-2">您想询问的问题</label>
+              <label className="block text-[#3d2914] font-semibold mb-2">{t('yi.question.label')}</label>
               <textarea
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
                 className="w-full px-4 py-3 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] resize-none bg-[#faf5e8]"
                 rows={3}
-                placeholder="请输入您想占卜的问题，例如：事业发展、感情婚姻、健康状况等"
+                placeholder={t('yi.question.placeholder')}
               />
             </div>
-            
+
             <div className="mb-6">
-              <label className="block text-[#3d2914] font-semibold mb-3">选择占卜方式</label>
+              <label className="block text-[#3d2914] font-semibold mb-3">{t('yi.methods.label')}</label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button
                   onClick={() => setMethod('random')}
@@ -321,10 +290,10 @@ export default function YiPage() {
                   }`}
                 >
                   <div className="text-3xl mb-2">🎲</div>
-                  <div className="font-semibold text-[#3d2914]">随机起卦</div>
-                  <div className="text-sm text-[#5a4520] mt-1">系统随机生成卦象</div>
+                  <div className="font-semibold text-[#3d2914]">{t('yi.methods.random')}</div>
+                  <div className="text-sm text-[#5a4520] mt-1">{t('yi.methods.randomDesc')}</div>
                 </button>
-                
+
                 <button
                   onClick={() => setMethod('coins')}
                   className={`p-4 rounded-lg border-2 transition-all ${
@@ -334,10 +303,10 @@ export default function YiPage() {
                   }`}
                 >
                   <div className="text-3xl mb-2">🪙</div>
-                  <div className="font-semibold text-[#3d2914]">金钱卦</div>
-                  <div className="text-sm text-[#5a4520] mt-1">输入6个数字（6-9）</div>
+                  <div className="font-semibold text-[#3d2914]">{t('yi.methods.coins')}</div>
+                  <div className="text-sm text-[#5a4520] mt-1">{t('yi.methods.coinsDesc')}</div>
                 </button>
-                
+
                 <button
                   onClick={() => setMethod('number')}
                   className={`p-4 rounded-lg border-2 transition-all ${
@@ -347,42 +316,42 @@ export default function YiPage() {
                   }`}
                 >
                   <div className="text-3xl mb-2">🔢</div>
-                  <div className="font-semibold text-[#3d2914]">数字卦</div>
-                  <div className="text-sm text-[#5a4520] mt-1">输入6个数字（1-10）</div>
+                  <div className="font-semibold text-[#3d2914]">{t('yi.methods.number')}</div>
+                  <div className="text-sm text-[#5a4520] mt-1">{t('yi.methods.numberDesc')}</div>
                 </button>
               </div>
             </div>
-            
+
             {(method === 'coins' || method === 'number') && (
               <div className="mb-6">
                 <label className="block text-[#3d2914] font-semibold mb-2">
-                  {method === 'coins' ? '请输入6个数字（6-9，用逗号分隔）' : '请输入6个数字（1-10，用逗号分隔）'}
+                  {method === 'coins' ? t('yi.inputNumbers.coins') : t('yi.inputNumbers.number')}
                 </label>
                 <input
                   type="text"
                   value={numbers}
                   onChange={(e) => setNumbers(e.target.value)}
                   className="w-full px-4 py-3 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] bg-[#faf5e8]"
-                  placeholder={method === 'coins' ? '例如：6,7,8,9,6,7' : '例如：1,2,3,4,5,6'}
+                  placeholder={method === 'coins' ? t('yi.inputNumbers.placeholder.coins') : t('yi.inputNumbers.placeholder.number')}
                 />
               </div>
             )}
-            
+
             <button
               onClick={handleDivine}
               disabled={loading}
               className="w-full bg-[#3d2914] text-[#faf5e8] py-4 rounded-lg font-semibold text-lg hover:bg-[#2a1f10] transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-[#c9a962]"
             >
-              {loading ? '正在占卜...' : '开始占卜'}
+              {loading ? t('yi.divining') : t('yi.divinationComplete')}
             </button>
           </div>
         )}
-        
+
         {result && (
           <div className="space-y-6">
             <div className="ancient-card rounded-xl p-4">
               <div className="flex items-center justify-center gap-4">
-                <span className="text-[#3d2914]">显示白话翻译：</span>
+                <span className="text-[#3d2914]">{t('yi.showVernacular')}</span>
                 <button
                   onClick={() => setShowVernacular(!showVernacular)}
                   className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
@@ -391,58 +360,58 @@ export default function YiPage() {
                       : 'bg-[#c9a962]/20 text-[#3d2914]'
                   }`}
                 >
-                  {showVernacular ? '开启' : '关闭'}
+                  {showVernacular ? t('yi.toggleOn') : t('yi.toggleOff')}
                 </button>
               </div>
             </div>
-            
+
             {question && (
               <div className="ancient-card rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-[#3d2914] mb-2">您的问题</h3>
+                <h3 className="text-lg font-semibold text-[#3d2914] mb-2">{t('yi.yourQuestion')}</h3>
                 <p className="text-[#5a4520]">{question}</p>
               </div>
             )}
-            
+
             {question && (
               <div className="ancient-card rounded-xl p-6 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-300/50">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-purple-600 text-lg">🎯</span>
-                  <span className="text-purple-800 font-semibold">针对您的问题</span>
+                  <span className="text-purple-800 font-semibold">{t('yi.answerForQuestion')}</span>
                 </div>
                 <p className="text-[#3d2914] leading-relaxed">{getQuestionAdvice(question, result.benGua.name)}</p>
               </div>
             )}
-            
-            {renderGua(result.benGua, '本卦')}
-            
+
+            {renderGua(result.benGua, t('yi.benGua'))}
+
             {result.bianGua && result.bianGua.code !== result.benGua.code && (
               <div className="mt-6">
                 <div className="flex items-center justify-center gap-4 mb-4">
                   <div className="w-16 h-px bg-[#c9a962]/30"></div>
-                  <span className="text-[#c9a962] text-sm tracking-widest">变卦提示</span>
+                  <span className="text-[#c9a962] text-sm tracking-widest">{t('yi.bianGuaHint')}</span>
                   <div className="w-16 h-px bg-[#c9a962]/30"></div>
                 </div>
-                <p className="text-center text-[#5a4520] text-sm mb-4">动爻引发变化，以下为变卦解析</p>
-                {renderGua(result.bianGua, '变卦', false)}
+                <p className="text-center text-[#5a4520] text-sm mb-4">{t('yi.bianGuaDesc')}</p>
+                {renderGua(result.bianGua, t('yi.bianGua'), false)}
               </div>
             )}
-            
+
             {result.dongYao.length > 0 && (
               <div className="ancient-card rounded-xl p-6">
-                <h3 className="text-xl font-bold text-[#3d2914] mb-4">动爻</h3>
+                <h3 className="text-xl font-bold text-[#3d2914] mb-4">{t('yi.dongYao')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {result.dongYao.map((yao) => (
                     <span key={yao} className="bg-[#8b2500]/10 text-[#8b2500] px-4 py-2 rounded-full font-semibold border border-[#8b2500]/30">
-                      第{yao}爻动
+                      {t('yi.yaoLine', { yao })}
                     </span>
                   ))}
                 </div>
               </div>
             )}
-            
+
             {result.benGua.yaoci && (
               <div className="ancient-card rounded-xl p-6">
-                <h3 className="text-xl font-bold text-[#3d2914] mb-4">爻辞详解</h3>
+                <h3 className="text-xl font-bold text-[#3d2914] mb-4">{t('yi.yaoDetail')}</h3>
                 <div className="space-y-4">
                   {result.yaos.map((yao, index) => (
                     <div
@@ -470,7 +439,7 @@ export default function YiPage() {
                 </div>
               </div>
             )}
-            
+
             <button
               onClick={() => {
                 setResult(null);
@@ -479,7 +448,7 @@ export default function YiPage() {
               }}
               className="w-full bg-[#faf5e8] text-[#3d2914] py-4 rounded-lg font-semibold text-lg border-2 border-[#c9a962] hover:bg-[#c9a962]/10 transition-colors"
             >
-              重新占卜
+              {t('yi.restart')}
             </button>
           </div>
         )}
@@ -487,9 +456,9 @@ export default function YiPage() {
 
       <footer className="bg-ancient-dark py-8 mt-16 border-t-4 border-[#c9a962]">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-[#d4c8a0]/70">© 2026 周易命理系统 · 传承千年智慧，启迪人生智慧</p>
-          <p className="text-[#5a4520] text-sm mt-2">本系统仅供娱乐参考，请勿过分迷信</p>
-          <p className="text-[#5a4520] text-sm mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
+          <p className="text-[#d4c8a0]/70">{t('common.footer.copyright')} · 传承千年智慧，启迪人生智慧</p>
+          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.disclaimer')}</p>
+          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
         </div>
       </footer>
     </div>

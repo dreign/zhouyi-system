@@ -2,42 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import { ZiweiPlate, Palace, BRIGHTNESS_LABELS, PALACE_NAMES } from '../../engine/ziwei';
-import Link from 'next/link';
-
-const NavLink = ({ href, label, active }: { href: string; label: string; active?: boolean }) => (
-  <Link 
-    href={href}
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      active 
-        ? 'bg-[#c9a962]/20 text-[#c9a962] border border-[#c9a962]/50' 
-        : 'text-[#d4c8a0] hover:text-[#c9a962] hover:bg-[#c9a962]/10'
-    }`}
-  >
-    {label}
-  </Link>
-);
+import Navigation from '@/components/Navigation';
+import { useTranslations } from '@/lib/i18n';
 
 interface ZiweiChartProps {
   plate: ZiweiPlate;
 }
 
-const TaiChiIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-full h-full">
-    <circle cx="50" cy="50" r="48" fill="none" stroke="#1a140a" strokeWidth="2"/>
-    <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2" fill="#1a140a"/>
-    <path d="M50 2 A48 48 0 0 0 50 98 A24 24 0 0 0 50 50 A24 24 0 0 1 50 2" fill="#faf5e8"/>
-    <circle cx="50" cy="26" r="8" fill="#faf5e8"/>
-    <circle cx="50" cy="74" r="8" fill="#1a140a"/>
-    <circle cx="50" cy="26" r="2" fill="#1a140a"/>
-    <circle cx="50" cy="74" r="2" fill="#faf5e8"/>
-  </svg>
-);
-
 function PalaceCell({ palace, isActive, onClick }: { palace: Palace; isActive: boolean; onClick: () => void }) {
   const mainStars = palace.stars.filter(s => s.type === 'major');
   const luckyStars = palace.stars.filter(s => s.type === 'lucky');
   const badStars = palace.stars.filter(s => s.type === 'bad');
-  const siHuaText = palace.siHua.map(sh => `${sh.type === 'lu' ? '禄' : sh.type === 'quan' ? '权' : sh.type === 'ke' ? '科' : '忌'}(${sh.star})`).join('');
+  const siHuaText = palace.siHua.map(sh => `${sh.type === 'lu' ? '禄' : sh.type === 'quan' ? '权' : sh.type === 'ke' ? '科' : '忌'}`).join('');
+
+  const { t } = useTranslations();
 
   return (
     <div
@@ -54,7 +32,7 @@ function PalaceCell({ palace, isActive, onClick }: { palace: Palace; isActive: b
         <span className="text-xs text-[#5a4520]">{palace.branch}</span>
       </div>
       
-      <div className="text-xs text-[#5a4520] mb-1">天干: {palace.stem}</div>
+      <div className="text-xs text-[#5a4520] mb-1">{t('ziwei.tianGan')}: {palace.stem}</div>
       
       {mainStars.length > 0 && (
         <div className="space-y-0.5">
@@ -108,14 +86,15 @@ function PalaceCell({ palace, isActive, onClick }: { palace: Palace; isActive: b
 }
 
 function ZiweiChart({ plate }: ZiweiChartProps) {
+  const { t } = useTranslations();
   const [activePalace, setActivePalace] = useState<number>(0);
 
   return (
     <div className="ancient-card rounded-xl p-6">
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold text-[#3d2914]">紫微斗数命盘</h2>
+        <h2 className="text-xl font-bold text-[#3d2914]">{t('ziwei.chart')}</h2>
         <p className="text-sm text-[#5a4520] mt-1">
-          五行局: {plate.fiveElementBureau} | 命主: {plate.mingZhu} | 身主: {plate.shenZhu}
+          {t('ziwei.fiveElements')}: {plate.fiveElementBureau} | {t('ziwei.lifeLord')}: {plate.mingZhu} | {t('ziwei.bodyLord')}: {plate.shenZhu}
         </p>
       </div>
 
@@ -131,7 +110,7 @@ function ZiweiChart({ plate }: ZiweiChartProps) {
       </div>
 
       <div className="mt-6 p-4 bg-[#1a140a]/5 rounded-lg border border-[#3d2914]/20">
-        <h3 className="font-bold text-[#3d2914] mb-2">宫位详解: {PALACE_NAMES[activePalace]}</h3>
+        <h3 className="font-bold text-[#3d2914] mb-2">{t('ziwei.palaceDetail')}: {PALACE_NAMES[activePalace]}</h3>
         <div className="text-sm text-[#5a4520]">
           <p>{plate.palaces[activePalace].stars.map(s => s.description).join(' ')}</p>
         </div>
@@ -141,6 +120,7 @@ function ZiweiChart({ plate }: ZiweiChartProps) {
 }
 
 export default function ZiweiPage() {
+  const { t } = useTranslations();
   const [plate, setPlate] = useState<ZiweiPlate | null>(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -172,91 +152,57 @@ export default function ZiweiPage() {
 
   return (
     <div className="min-h-screen bg-paper taiji-bg">
-      <header className="relative z-10 bg-ancient-dark pt-20 pb-10 border-b-4 border-[#c9a962]">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-center gap-4">
-            <div className="w-16 h-16 rotate-slow">
-              <TaiChiIcon />
-            </div>
-            <div>
-              <h1 className="text-4xl font-bold text-[#c9a962] tracking-widest">紫微斗数</h1>
-              <p className="text-[#d4c8a0] mt-2 tracking-wider">紫微斗数是中国传统命理学术，通过星曜分布推断人生运势</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a140a]/95 backdrop-blur-md border-b border-[#c9a962]/30 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border-2 border-[#c9a962] flex items-center justify-center bg-[#2a1f10]">
-                <span className="text-[#c9a962] text-xl">☯</span>
-              </div>
-              <span className="text-[#c9a962] font-bold text-lg tracking-wider">周易智慧</span>
-            </div>
-            
-            <div className="flex items-center gap-6">
-              <NavLink href="/" label="首页" />
-              <NavLink href="/yi" label="易经占卜" />
-              <NavLink href="/bazi" label="八字命理" />
-              <NavLink href="/ziwei" label="紫微斗数" active />
-              <NavLink href="/name" label="姓名分析" />
-              <NavLink href="/book" label="周易全书" />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation activePath="/ziwei" />
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="ancient-card rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-bold text-[#3d2914] mb-4">排盘输入</h2>
+          <h2 className="text-lg font-bold text-[#3d2914] mb-4">{t('ziwei.charting')}</h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-2 md:grid-cols-6 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#3d2914] mb-1">年份</label>
+              <label className="block text-sm font-medium text-[#3d2914] mb-1">{t('ziwei.year')}</label>
               <input
                 type="number"
                 value={formData.year}
-                onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
+                onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value)})}
                 className="w-full px-3 py-2 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] bg-[#faf5e8]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#3d2914] mb-1">月份</label>
+              <label className="block text-sm font-medium text-[#3d2914] mb-1">{t('ziwei.month')}</label>
               <input
                 type="number"
                 value={formData.month}
-                onChange={(e) => setFormData({ ...formData, month: parseInt(e.target.value) })}
+                onChange={(e) => setFormData({ ...formData, month: parseInt(e.target.value)})}
                 className="w-full px-3 py-2 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] bg-[#faf5e8]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#3d2914] mb-1">日期</label>
+              <label className="block text-sm font-medium text-[#3d2914] mb-1">{t('ziwei.day')}</label>
               <input
                 type="number"
                 value={formData.day}
-                onChange={(e) => setFormData({ ...formData, day: parseInt(e.target.value) })}
+                onChange={(e) => setFormData({ ...formData, day: parseInt(e.target.value)})}
                 className="w-full px-3 py-2 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] bg-[#faf5e8]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#3d2914] mb-1">时辰</label>
+              <label className="block text-sm font-medium text-[#3d2914] mb-1">{t('ziwei.hour')}</label>
               <input
                 type="number"
                 value={formData.hour}
-                onChange={(e) => setFormData({ ...formData, hour: parseInt(e.target.value) })}
+                onChange={(e) => setFormData({ ...formData, hour: parseInt(e.target.value)})}
                 className="w-full px-3 py-2 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] bg-[#faf5e8]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#3d2914] mb-1">性别</label>
+              <label className="block text-sm font-medium text-[#3d2914] mb-1">{t('ziwei.gender')}</label>
               <select
                 value={formData.gender}
-                onChange={(e) => setFormData({ ...formData, gender: e.target.value as 'male' | 'female' })}
+                onChange={(e) => setFormData({ ...formData, gender: e.target.value as 'male' | 'female'})}
                 className="w-full px-3 py-2 border border-[#c9a962]/30 rounded-lg focus:ring-2 focus:ring-[#c9a962] focus:border-[#c9a962] bg-[#faf5e8]"
               >
-                <option value="male">男</option>
-                <option value="female">女</option>
+                <option value="male">{t('ziwei.male')}</option>
+                <option value="female">{t('ziwei.female')}</option>
               </select>
             </div>
             <div className="flex items-end">
@@ -265,7 +211,7 @@ export default function ZiweiPage() {
                 disabled={loading}
                 className="w-full px-4 py-2 bg-[#3d2914] text-[#faf5e8] font-medium rounded-lg hover:bg-[#2a1f10] focus:ring-2 focus:ring-[#c9a962] disabled:opacity-50 disabled:cursor-not-allowed border border-[#c9a962]"
               >
-                {loading ? '排盘中...' : '排盘'}
+                {loading ? t('ziwei.calculating') : t('ziwei.startCharting')}
               </button>
             </div>
           </form>
@@ -273,9 +219,7 @@ export default function ZiweiPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="w-12 h-12 rotate-slow">
-              <TaiChiIcon />
-            </div>
+            <div className="w-12 h-12 border-4 border-[#c9a962] border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : plate ? (
           <ZiweiChart plate={plate} />
@@ -286,17 +230,17 @@ export default function ZiweiPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-[#3d2914]">请输入出生信息进行排盘</h3>
-            <p className="text-[#5a4520] mt-2">填写上方表单获取紫微斗数命盘</p>
+            <h3 className="text-lg font-medium text-[#3d2914]">{t('ziwei.enterBirthInfo')}</h3>
+            <p className="text-[#5a4520] mt-2">{t('ziwei.fillForm')}</p>
           </div>
         )}
       </main>
 
       <footer className="bg-ancient-dark py-8 mt-16 border-t-4 border-[#c9a962]">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-[#d4c8a0]/70">© 2026 周易命理系统 · 传承千年智慧，启迪人生智慧</p>
-          <p className="text-[#5a4520] text-sm mt-2">本系统仅供娱乐参考，请勿过分迷信</p>
-          <p className="text-[#5a4520] text-sm mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
+          <p className="text-[#d4c8a0]/70">{t('common.footer.copyright')} · {t('common.footer.tagline')}</p>
+          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.disclaimer')}</p>
+          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
         </div>
       </footer>
     </div>

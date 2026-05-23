@@ -1,10 +1,7 @@
-import type { Metadata } from "next";
-import "./globals.css";
+'use client';
 
-export const metadata: Metadata = {
-  title: "周易命理系统",
-  description: "传承千年智慧，探索人生奥秘",
-};
+import { TranslationProvider } from '@/lib/i18n';
+import './globals.css';
 
 export default function RootLayout({
   children,
@@ -12,9 +9,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh">
       <body className="min-h-screen bg-paper font-serif">
-        {children}
+        <TranslationProvider>
+          {children}
+        </TranslationProvider>
         <script
           dangerouslySetInnerHTML={{
             __html: `

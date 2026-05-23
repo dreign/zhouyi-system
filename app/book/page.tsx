@@ -1,20 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-
-const NavLink = ({ href, label, active }: { href: string; label: string; active?: boolean }) => (
-  <Link 
-    href={href}
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      active 
-        ? 'bg-[#c9a962]/20 text-[#c9a962] border border-[#c9a962]/50' 
-        : 'text-[#d4c8a0] hover:text-[#c9a962] hover:bg-[#c9a962]/10'
-    }`}
-  >
-    {label}
-  </Link>
-);
+import Navigation from '@/components/Navigation';
+import { useTranslations } from '@/lib/i18n';
 
 const guaList = [
   { id: 1, name: '乾卦', fullName: '乾为天', symbol: '䷀', url: '/zhouyi-book/01_乾卦.html' },
@@ -84,6 +72,7 @@ const guaList = [
 ];
 
 export default function BookPage() {
+  const { t } = useTranslations();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredGua = guaList.filter(gua => 
@@ -93,35 +82,15 @@ export default function BookPage() {
 
   return (
     <div className="min-h-screen bg-[#faf5e8]">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a140a]/95 backdrop-blur-md border-b border-[#c9a962]/30 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border-2 border-[#c9a962] flex items-center justify-center bg-[#2a1f10]">
-                <span className="text-[#c9a962] text-xl">☯</span>
-              </div>
-              <span className="text-[#c9a962] font-bold text-lg tracking-wider">周易智慧</span>
-            </div>
-            
-            <div className="flex items-center gap-6">
-              <NavLink href="/" label="首页" />
-              <NavLink href="/yi" label="易经占卜" />
-              <NavLink href="/bazi" label="八字命理" />
-              <NavLink href="/ziwei" label="紫微斗数" />
-              <NavLink href="/name" label="姓名分析" />
-              <NavLink href="/book" label="周易全书" active />
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation activePath="/book" />
 
       <main className="pt-20 pb-12 max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[#3d2914] mb-4 tracking-wider">
-            📖 周易全书
+            📖 {t('book.title')}
           </h1>
           <p className="text-[#5a4520] text-lg">
-            六十四卦详解 · 原文与译文
+            {t('book.subtitle')} · 原文与译文
           </p>
         </div>
 
@@ -129,7 +98,7 @@ export default function BookPage() {
           <div className="relative">
             <input
               type="text"
-              placeholder="搜索卦名..."
+              placeholder={t('book.searchGua')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-4 py-3 pl-12 rounded-lg border border-[#c9a962]/30 bg-white/80 text-[#3d2914] placeholder-[#8b7355] focus:outline-none focus:border-[#c9a962] focus:ring-2 focus:ring-[#c9a962]/20 transition-all"
@@ -157,7 +126,7 @@ export default function BookPage() {
                 </div>
               </div>
               <div className="mt-4 text-xs text-[#8b7355] opacity-0 group-hover:opacity-100 transition-opacity">
-                点击查看详细解读 →
+                {t('book.clickForDetail')}
               </div>
             </a>
           ))}
@@ -166,17 +135,14 @@ export default function BookPage() {
         {filteredGua.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔮</div>
-            <p className="text-[#5a4520]">未找到匹配的卦象</p>
+            <p className="text-[#5a4520]">{t('book.noMatch')}</p>
           </div>
         )}
 
         <div className="mt-12 p-6 bg-[#c9a962]/10 rounded-xl border border-[#c9a962]/30">
-          <h3 className="text-xl font-bold text-[#3d2914] mb-4">📚 关于周易</h3>
+          <h3 className="text-xl font-bold text-[#3d2914] mb-4">📚 {t('book.aboutZhouyi')}</h3>
           <p className="text-[#5a4520] leading-relaxed">
-            《周易》即《易经》，是中国传统经典之一，相传系周文王姬昌所作。
-            内容包括《经》和《传》两个部分。《经》主要是六十四卦和三百八十四爻，
-            卦和爻各有说明（卦辞、爻辞），作为占卜之用。《周易》被誉为&quot;群经之首&quot;，
-            蕴含着深邃的哲学思想和宇宙观，对中国文化产生了深远影响。
+            {t('book.aboutZhouyiContent')}
           </p>
         </div>
       </main>
@@ -185,13 +151,13 @@ export default function BookPage() {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <span className="text-[#c9a962]">☯</span>
-            <span className="tracking-widest">周易智慧</span>
+            <span className="tracking-widest">{t('common.appName')}</span>
             <span className="text-[#c9a962]">☯</span>
           </div>
           <p className="text-sm text-[#8b7355]">
-            传承千年智慧 · 探索人生奥秘
+            {t('common.footer.tagline')}
           </p>
-          <p className="text-sm text-[#8b7355] mt-2">联系邮箱：<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
+          <p className="text-sm text-[#8b7355] mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
         </div>
       </footer>
     </div>
