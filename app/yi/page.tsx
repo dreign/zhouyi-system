@@ -402,7 +402,7 @@ export default function YiPage() {
                 <div className="flex flex-wrap gap-2">
                   {result.dongYao.map((yao) => (
                     <span key={yao} className="bg-[#8b2500]/10 text-[#8b2500] px-4 py-2 rounded-full font-semibold border border-[#8b2500]/30">
-                      {t('yi.yaoLine', { yao })}
+                      {t('yi.yaoLine', { yao: String(yao) })}
                     </span>
                   ))}
                 </div>
