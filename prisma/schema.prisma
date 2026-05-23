@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/prisma"
 }
 
 datasource db {
@@ -21,11 +20,38 @@ model User {
   language  String   @default("zh-CN")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  
+
   divinationRecords DivinationRecord[]
-  subscription      Subscription?
-  
+  tokenBalance     TokenBalance?
+  tokenUsage       TokenUsage[]
+
   @@map("users")
+}
+
+model TokenBalance {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique @map("user_id")
+  balance       Int      @default(0)
+  totalPurchased Int     @default(0)
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@map("token_balance")
+}
+
+model TokenUsage {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @map("user_id")
+  type       String
+  tokens     Int
+  cost       Int
+  isPaid     Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("token_usage")
 }
 
 model DivinationRecord {
@@ -34,10 +60,13 @@ model DivinationRecord {
   type       String
   inputData  String   @map("input_data")
   result     String
+  detailResult String? @map("detail_result")
+  isPaid     Boolean  @default(false)
+  cost       Int      @default(0)
   createdAt  DateTime @default(now()) @map("created_at")
-  
+
   user       User     @relation(fields: [userId], references: [id])
-  
+
   @@map("divination_records")
 }
 
@@ -61,20 +90,6 @@ model CharacterData {
   pinyin       String?
   wuxing       String?
   kangxiStroke Int?   @map("kangxi_stroke")
-  
-  @@map("character_data")
-}
 
-model Subscription {
-  id        Int      @id @default(autoincrement())
-  userId    Int      @unique @map("user_id")
-  plan      String
-  status    String
-  startAt   DateTime @map("start_at")
-  endAt     DateTime? @map("end_at")
-  createdAt DateTime @default(now()) @map("created_at")
-  
-  user      User     @relation(fields: [userId], references: [id])
-  
-  @@map("subscriptions")
+  @@map("character_data")
 }

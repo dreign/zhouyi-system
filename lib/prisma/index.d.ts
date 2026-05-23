@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model TokenBalance
+ * 
+ */
+export type TokenBalance = $Result.DefaultSelection<Prisma.$TokenBalancePayload>
+/**
+ * Model TokenUsage
+ * 
+ */
+export type TokenUsage = $Result.DefaultSelection<Prisma.$TokenUsagePayload>
+/**
  * Model DivinationRecord
  * 
  */
@@ -33,11 +43,6 @@ export type GuaData = $Result.DefaultSelection<Prisma.$GuaDataPayload>
  * 
  */
 export type CharacterData = $Result.DefaultSelection<Prisma.$CharacterDataPayload>
-/**
- * Model Subscription
- * 
- */
-export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -173,6 +178,26 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs>;
 
   /**
+   * `prisma.tokenBalance`: Exposes CRUD operations for the **TokenBalance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TokenBalances
+    * const tokenBalances = await prisma.tokenBalance.findMany()
+    * ```
+    */
+  get tokenBalance(): Prisma.TokenBalanceDelegate<ExtArgs>;
+
+  /**
+   * `prisma.tokenUsage`: Exposes CRUD operations for the **TokenUsage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TokenUsages
+    * const tokenUsages = await prisma.tokenUsage.findMany()
+    * ```
+    */
+  get tokenUsage(): Prisma.TokenUsageDelegate<ExtArgs>;
+
+  /**
    * `prisma.divinationRecord`: Exposes CRUD operations for the **DivinationRecord** model.
     * Example usage:
     * ```ts
@@ -201,16 +226,6 @@ export class PrismaClient<
     * ```
     */
   get characterData(): Prisma.CharacterDataDelegate<ExtArgs>;
-
-  /**
-   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Subscriptions
-    * const subscriptions = await prisma.subscription.findMany()
-    * ```
-    */
-  get subscription(): Prisma.SubscriptionDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -651,10 +666,11 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    TokenBalance: 'TokenBalance',
+    TokenUsage: 'TokenUsage',
     DivinationRecord: 'DivinationRecord',
     GuaData: 'GuaData',
-    CharacterData: 'CharacterData',
-    Subscription: 'Subscription'
+    CharacterData: 'CharacterData'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -670,7 +686,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "divinationRecord" | "guaData" | "characterData" | "subscription"
+      modelProps: "user" | "tokenBalance" | "tokenUsage" | "divinationRecord" | "guaData" | "characterData"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -741,6 +757,146 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      TokenBalance: {
+        payload: Prisma.$TokenBalancePayload<ExtArgs>
+        fields: Prisma.TokenBalanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TokenBalanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TokenBalanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>
+          }
+          findFirst: {
+            args: Prisma.TokenBalanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TokenBalanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>
+          }
+          findMany: {
+            args: Prisma.TokenBalanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>[]
+          }
+          create: {
+            args: Prisma.TokenBalanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>
+          }
+          createMany: {
+            args: Prisma.TokenBalanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TokenBalanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>[]
+          }
+          delete: {
+            args: Prisma.TokenBalanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>
+          }
+          update: {
+            args: Prisma.TokenBalanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>
+          }
+          deleteMany: {
+            args: Prisma.TokenBalanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TokenBalanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TokenBalanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenBalancePayload>
+          }
+          aggregate: {
+            args: Prisma.TokenBalanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTokenBalance>
+          }
+          groupBy: {
+            args: Prisma.TokenBalanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TokenBalanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TokenBalanceCountArgs<ExtArgs>
+            result: $Utils.Optional<TokenBalanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      TokenUsage: {
+        payload: Prisma.$TokenUsagePayload<ExtArgs>
+        fields: Prisma.TokenUsageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TokenUsageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TokenUsageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+          }
+          findFirst: {
+            args: Prisma.TokenUsageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TokenUsageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+          }
+          findMany: {
+            args: Prisma.TokenUsageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>[]
+          }
+          create: {
+            args: Prisma.TokenUsageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+          }
+          createMany: {
+            args: Prisma.TokenUsageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TokenUsageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>[]
+          }
+          delete: {
+            args: Prisma.TokenUsageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+          }
+          update: {
+            args: Prisma.TokenUsageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+          }
+          deleteMany: {
+            args: Prisma.TokenUsageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TokenUsageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TokenUsageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TokenUsagePayload>
+          }
+          aggregate: {
+            args: Prisma.TokenUsageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTokenUsage>
+          }
+          groupBy: {
+            args: Prisma.TokenUsageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TokenUsageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TokenUsageCountArgs<ExtArgs>
+            result: $Utils.Optional<TokenUsageCountAggregateOutputType> | number
           }
         }
       }
@@ -954,76 +1110,6 @@ export namespace Prisma {
           }
         }
       }
-      Subscription: {
-        payload: Prisma.$SubscriptionPayload<ExtArgs>
-        fields: Prisma.SubscriptionFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          findFirst: {
-            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          findMany: {
-            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
-          }
-          create: {
-            args: Prisma.SubscriptionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          createMany: {
-            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
-          }
-          delete: {
-            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          update: {
-            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          deleteMany: {
-            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          upsert: {
-            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          aggregate: {
-            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSubscription>
-          }
-          groupBy: {
-            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SubscriptionCountArgs<ExtArgs>
-            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1186,10 +1272,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     divinationRecords: number
+    tokenUsage: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     divinationRecords?: boolean | UserCountOutputTypeCountDivinationRecordsArgs
+    tokenUsage?: boolean | UserCountOutputTypeCountTokenUsageArgs
   }
 
   // Custom InputTypes
@@ -1208,6 +1296,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDivinationRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DivinationRecordWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTokenUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TokenUsageWhereInput
   }
 
 
@@ -1446,7 +1541,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     divinationRecords?: boolean | User$divinationRecordsArgs<ExtArgs>
-    subscription?: boolean | User$subscriptionArgs<ExtArgs>
+    tokenBalance?: boolean | User$tokenBalanceArgs<ExtArgs>
+    tokenUsage?: boolean | User$tokenUsageArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1476,7 +1572,8 @@ export namespace Prisma {
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     divinationRecords?: boolean | User$divinationRecordsArgs<ExtArgs>
-    subscription?: boolean | User$subscriptionArgs<ExtArgs>
+    tokenBalance?: boolean | User$tokenBalanceArgs<ExtArgs>
+    tokenUsage?: boolean | User$tokenUsageArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1485,7 +1582,8 @@ export namespace Prisma {
     name: "User"
     objects: {
       divinationRecords: Prisma.$DivinationRecordPayload<ExtArgs>[]
-      subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
+      tokenBalance: Prisma.$TokenBalancePayload<ExtArgs> | null
+      tokenUsage: Prisma.$TokenUsagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1862,7 +1960,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     divinationRecords<T extends User$divinationRecordsArgs<ExtArgs> = {}>(args?: Subset<T, User$divinationRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DivinationRecordPayload<ExtArgs>, T, "findMany"> | Null>
-    subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    tokenBalance<T extends User$tokenBalanceArgs<ExtArgs> = {}>(args?: Subset<T, User$tokenBalanceArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    tokenUsage<T extends User$tokenUsageArgs<ExtArgs> = {}>(args?: Subset<T, User$tokenUsageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2233,18 +2332,38 @@ export namespace Prisma {
   }
 
   /**
-   * User.subscription
+   * User.tokenBalance
    */
-  export type User$subscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$tokenBalanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Subscription
+     * Select specific fields to fetch from the TokenBalance
      */
-    select?: SubscriptionSelect<ExtArgs> | null
+    select?: TokenBalanceSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SubscriptionInclude<ExtArgs> | null
-    where?: SubscriptionWhereInput
+    include?: TokenBalanceInclude<ExtArgs> | null
+    where?: TokenBalanceWhereInput
+  }
+
+  /**
+   * User.tokenUsage
+   */
+  export type User$tokenUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    where?: TokenUsageWhereInput
+    orderBy?: TokenUsageOrderByWithRelationInput | TokenUsageOrderByWithRelationInput[]
+    cursor?: TokenUsageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TokenUsageScalarFieldEnum | TokenUsageScalarFieldEnum[]
   }
 
   /**
@@ -2263,6 +2382,1984 @@ export namespace Prisma {
 
 
   /**
+   * Model TokenBalance
+   */
+
+  export type AggregateTokenBalance = {
+    _count: TokenBalanceCountAggregateOutputType | null
+    _avg: TokenBalanceAvgAggregateOutputType | null
+    _sum: TokenBalanceSumAggregateOutputType | null
+    _min: TokenBalanceMinAggregateOutputType | null
+    _max: TokenBalanceMaxAggregateOutputType | null
+  }
+
+  export type TokenBalanceAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    balance: number | null
+    totalPurchased: number | null
+  }
+
+  export type TokenBalanceSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    balance: number | null
+    totalPurchased: number | null
+  }
+
+  export type TokenBalanceMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    balance: number | null
+    totalPurchased: number | null
+    updatedAt: Date | null
+  }
+
+  export type TokenBalanceMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    balance: number | null
+    totalPurchased: number | null
+    updatedAt: Date | null
+  }
+
+  export type TokenBalanceCountAggregateOutputType = {
+    id: number
+    userId: number
+    balance: number
+    totalPurchased: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TokenBalanceAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    balance?: true
+    totalPurchased?: true
+  }
+
+  export type TokenBalanceSumAggregateInputType = {
+    id?: true
+    userId?: true
+    balance?: true
+    totalPurchased?: true
+  }
+
+  export type TokenBalanceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    balance?: true
+    totalPurchased?: true
+    updatedAt?: true
+  }
+
+  export type TokenBalanceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    balance?: true
+    totalPurchased?: true
+    updatedAt?: true
+  }
+
+  export type TokenBalanceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    balance?: true
+    totalPurchased?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TokenBalanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TokenBalance to aggregate.
+     */
+    where?: TokenBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenBalances to fetch.
+     */
+    orderBy?: TokenBalanceOrderByWithRelationInput | TokenBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TokenBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TokenBalances
+    **/
+    _count?: true | TokenBalanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TokenBalanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TokenBalanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TokenBalanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TokenBalanceMaxAggregateInputType
+  }
+
+  export type GetTokenBalanceAggregateType<T extends TokenBalanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateTokenBalance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTokenBalance[P]>
+      : GetScalarType<T[P], AggregateTokenBalance[P]>
+  }
+
+
+
+
+  export type TokenBalanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TokenBalanceWhereInput
+    orderBy?: TokenBalanceOrderByWithAggregationInput | TokenBalanceOrderByWithAggregationInput[]
+    by: TokenBalanceScalarFieldEnum[] | TokenBalanceScalarFieldEnum
+    having?: TokenBalanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TokenBalanceCountAggregateInputType | true
+    _avg?: TokenBalanceAvgAggregateInputType
+    _sum?: TokenBalanceSumAggregateInputType
+    _min?: TokenBalanceMinAggregateInputType
+    _max?: TokenBalanceMaxAggregateInputType
+  }
+
+  export type TokenBalanceGroupByOutputType = {
+    id: number
+    userId: number
+    balance: number
+    totalPurchased: number
+    updatedAt: Date
+    _count: TokenBalanceCountAggregateOutputType | null
+    _avg: TokenBalanceAvgAggregateOutputType | null
+    _sum: TokenBalanceSumAggregateOutputType | null
+    _min: TokenBalanceMinAggregateOutputType | null
+    _max: TokenBalanceMaxAggregateOutputType | null
+  }
+
+  type GetTokenBalanceGroupByPayload<T extends TokenBalanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TokenBalanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TokenBalanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TokenBalanceGroupByOutputType[P]>
+            : GetScalarType<T[P], TokenBalanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TokenBalanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    balance?: boolean
+    totalPurchased?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tokenBalance"]>
+
+  export type TokenBalanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    balance?: boolean
+    totalPurchased?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tokenBalance"]>
+
+  export type TokenBalanceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    balance?: boolean
+    totalPurchased?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TokenBalanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TokenBalanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TokenBalancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TokenBalance"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      balance: number
+      totalPurchased: number
+      updatedAt: Date
+    }, ExtArgs["result"]["tokenBalance"]>
+    composites: {}
+  }
+
+  type TokenBalanceGetPayload<S extends boolean | null | undefined | TokenBalanceDefaultArgs> = $Result.GetResult<Prisma.$TokenBalancePayload, S>
+
+  type TokenBalanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TokenBalanceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TokenBalanceCountAggregateInputType | true
+    }
+
+  export interface TokenBalanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TokenBalance'], meta: { name: 'TokenBalance' } }
+    /**
+     * Find zero or one TokenBalance that matches the filter.
+     * @param {TokenBalanceFindUniqueArgs} args - Arguments to find a TokenBalance
+     * @example
+     * // Get one TokenBalance
+     * const tokenBalance = await prisma.tokenBalance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TokenBalanceFindUniqueArgs>(args: SelectSubset<T, TokenBalanceFindUniqueArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TokenBalance that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TokenBalanceFindUniqueOrThrowArgs} args - Arguments to find a TokenBalance
+     * @example
+     * // Get one TokenBalance
+     * const tokenBalance = await prisma.tokenBalance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TokenBalanceFindUniqueOrThrowArgs>(args: SelectSubset<T, TokenBalanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TokenBalance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceFindFirstArgs} args - Arguments to find a TokenBalance
+     * @example
+     * // Get one TokenBalance
+     * const tokenBalance = await prisma.tokenBalance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TokenBalanceFindFirstArgs>(args?: SelectSubset<T, TokenBalanceFindFirstArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TokenBalance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceFindFirstOrThrowArgs} args - Arguments to find a TokenBalance
+     * @example
+     * // Get one TokenBalance
+     * const tokenBalance = await prisma.tokenBalance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TokenBalanceFindFirstOrThrowArgs>(args?: SelectSubset<T, TokenBalanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TokenBalances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TokenBalances
+     * const tokenBalances = await prisma.tokenBalance.findMany()
+     * 
+     * // Get first 10 TokenBalances
+     * const tokenBalances = await prisma.tokenBalance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tokenBalanceWithIdOnly = await prisma.tokenBalance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TokenBalanceFindManyArgs>(args?: SelectSubset<T, TokenBalanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TokenBalance.
+     * @param {TokenBalanceCreateArgs} args - Arguments to create a TokenBalance.
+     * @example
+     * // Create one TokenBalance
+     * const TokenBalance = await prisma.tokenBalance.create({
+     *   data: {
+     *     // ... data to create a TokenBalance
+     *   }
+     * })
+     * 
+     */
+    create<T extends TokenBalanceCreateArgs>(args: SelectSubset<T, TokenBalanceCreateArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TokenBalances.
+     * @param {TokenBalanceCreateManyArgs} args - Arguments to create many TokenBalances.
+     * @example
+     * // Create many TokenBalances
+     * const tokenBalance = await prisma.tokenBalance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TokenBalanceCreateManyArgs>(args?: SelectSubset<T, TokenBalanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TokenBalances and returns the data saved in the database.
+     * @param {TokenBalanceCreateManyAndReturnArgs} args - Arguments to create many TokenBalances.
+     * @example
+     * // Create many TokenBalances
+     * const tokenBalance = await prisma.tokenBalance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TokenBalances and only return the `id`
+     * const tokenBalanceWithIdOnly = await prisma.tokenBalance.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TokenBalanceCreateManyAndReturnArgs>(args?: SelectSubset<T, TokenBalanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TokenBalance.
+     * @param {TokenBalanceDeleteArgs} args - Arguments to delete one TokenBalance.
+     * @example
+     * // Delete one TokenBalance
+     * const TokenBalance = await prisma.tokenBalance.delete({
+     *   where: {
+     *     // ... filter to delete one TokenBalance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TokenBalanceDeleteArgs>(args: SelectSubset<T, TokenBalanceDeleteArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TokenBalance.
+     * @param {TokenBalanceUpdateArgs} args - Arguments to update one TokenBalance.
+     * @example
+     * // Update one TokenBalance
+     * const tokenBalance = await prisma.tokenBalance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TokenBalanceUpdateArgs>(args: SelectSubset<T, TokenBalanceUpdateArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TokenBalances.
+     * @param {TokenBalanceDeleteManyArgs} args - Arguments to filter TokenBalances to delete.
+     * @example
+     * // Delete a few TokenBalances
+     * const { count } = await prisma.tokenBalance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TokenBalanceDeleteManyArgs>(args?: SelectSubset<T, TokenBalanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TokenBalances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TokenBalances
+     * const tokenBalance = await prisma.tokenBalance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TokenBalanceUpdateManyArgs>(args: SelectSubset<T, TokenBalanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TokenBalance.
+     * @param {TokenBalanceUpsertArgs} args - Arguments to update or create a TokenBalance.
+     * @example
+     * // Update or create a TokenBalance
+     * const tokenBalance = await prisma.tokenBalance.upsert({
+     *   create: {
+     *     // ... data to create a TokenBalance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TokenBalance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TokenBalanceUpsertArgs>(args: SelectSubset<T, TokenBalanceUpsertArgs<ExtArgs>>): Prisma__TokenBalanceClient<$Result.GetResult<Prisma.$TokenBalancePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TokenBalances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceCountArgs} args - Arguments to filter TokenBalances to count.
+     * @example
+     * // Count the number of TokenBalances
+     * const count = await prisma.tokenBalance.count({
+     *   where: {
+     *     // ... the filter for the TokenBalances we want to count
+     *   }
+     * })
+    **/
+    count<T extends TokenBalanceCountArgs>(
+      args?: Subset<T, TokenBalanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TokenBalanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TokenBalance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TokenBalanceAggregateArgs>(args: Subset<T, TokenBalanceAggregateArgs>): Prisma.PrismaPromise<GetTokenBalanceAggregateType<T>>
+
+    /**
+     * Group by TokenBalance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenBalanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TokenBalanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TokenBalanceGroupByArgs['orderBy'] }
+        : { orderBy?: TokenBalanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TokenBalanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTokenBalanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TokenBalance model
+   */
+  readonly fields: TokenBalanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TokenBalance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TokenBalanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TokenBalance model
+   */ 
+  interface TokenBalanceFieldRefs {
+    readonly id: FieldRef<"TokenBalance", 'Int'>
+    readonly userId: FieldRef<"TokenBalance", 'Int'>
+    readonly balance: FieldRef<"TokenBalance", 'Int'>
+    readonly totalPurchased: FieldRef<"TokenBalance", 'Int'>
+    readonly updatedAt: FieldRef<"TokenBalance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TokenBalance findUnique
+   */
+  export type TokenBalanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenBalance to fetch.
+     */
+    where: TokenBalanceWhereUniqueInput
+  }
+
+  /**
+   * TokenBalance findUniqueOrThrow
+   */
+  export type TokenBalanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenBalance to fetch.
+     */
+    where: TokenBalanceWhereUniqueInput
+  }
+
+  /**
+   * TokenBalance findFirst
+   */
+  export type TokenBalanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenBalance to fetch.
+     */
+    where?: TokenBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenBalances to fetch.
+     */
+    orderBy?: TokenBalanceOrderByWithRelationInput | TokenBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TokenBalances.
+     */
+    cursor?: TokenBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TokenBalances.
+     */
+    distinct?: TokenBalanceScalarFieldEnum | TokenBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * TokenBalance findFirstOrThrow
+   */
+  export type TokenBalanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenBalance to fetch.
+     */
+    where?: TokenBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenBalances to fetch.
+     */
+    orderBy?: TokenBalanceOrderByWithRelationInput | TokenBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TokenBalances.
+     */
+    cursor?: TokenBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TokenBalances.
+     */
+    distinct?: TokenBalanceScalarFieldEnum | TokenBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * TokenBalance findMany
+   */
+  export type TokenBalanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenBalances to fetch.
+     */
+    where?: TokenBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenBalances to fetch.
+     */
+    orderBy?: TokenBalanceOrderByWithRelationInput | TokenBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TokenBalances.
+     */
+    cursor?: TokenBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenBalances.
+     */
+    skip?: number
+    distinct?: TokenBalanceScalarFieldEnum | TokenBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * TokenBalance create
+   */
+  export type TokenBalanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TokenBalance.
+     */
+    data: XOR<TokenBalanceCreateInput, TokenBalanceUncheckedCreateInput>
+  }
+
+  /**
+   * TokenBalance createMany
+   */
+  export type TokenBalanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TokenBalances.
+     */
+    data: TokenBalanceCreateManyInput | TokenBalanceCreateManyInput[]
+  }
+
+  /**
+   * TokenBalance createManyAndReturn
+   */
+  export type TokenBalanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TokenBalances.
+     */
+    data: TokenBalanceCreateManyInput | TokenBalanceCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TokenBalance update
+   */
+  export type TokenBalanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TokenBalance.
+     */
+    data: XOR<TokenBalanceUpdateInput, TokenBalanceUncheckedUpdateInput>
+    /**
+     * Choose, which TokenBalance to update.
+     */
+    where: TokenBalanceWhereUniqueInput
+  }
+
+  /**
+   * TokenBalance updateMany
+   */
+  export type TokenBalanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TokenBalances.
+     */
+    data: XOR<TokenBalanceUpdateManyMutationInput, TokenBalanceUncheckedUpdateManyInput>
+    /**
+     * Filter which TokenBalances to update
+     */
+    where?: TokenBalanceWhereInput
+  }
+
+  /**
+   * TokenBalance upsert
+   */
+  export type TokenBalanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TokenBalance to update in case it exists.
+     */
+    where: TokenBalanceWhereUniqueInput
+    /**
+     * In case the TokenBalance found by the `where` argument doesn't exist, create a new TokenBalance with this data.
+     */
+    create: XOR<TokenBalanceCreateInput, TokenBalanceUncheckedCreateInput>
+    /**
+     * In case the TokenBalance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TokenBalanceUpdateInput, TokenBalanceUncheckedUpdateInput>
+  }
+
+  /**
+   * TokenBalance delete
+   */
+  export type TokenBalanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+    /**
+     * Filter which TokenBalance to delete.
+     */
+    where: TokenBalanceWhereUniqueInput
+  }
+
+  /**
+   * TokenBalance deleteMany
+   */
+  export type TokenBalanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TokenBalances to delete
+     */
+    where?: TokenBalanceWhereInput
+  }
+
+  /**
+   * TokenBalance without action
+   */
+  export type TokenBalanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenBalance
+     */
+    select?: TokenBalanceSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenBalanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TokenUsage
+   */
+
+  export type AggregateTokenUsage = {
+    _count: TokenUsageCountAggregateOutputType | null
+    _avg: TokenUsageAvgAggregateOutputType | null
+    _sum: TokenUsageSumAggregateOutputType | null
+    _min: TokenUsageMinAggregateOutputType | null
+    _max: TokenUsageMaxAggregateOutputType | null
+  }
+
+  export type TokenUsageAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    tokens: number | null
+    cost: number | null
+  }
+
+  export type TokenUsageSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    tokens: number | null
+    cost: number | null
+  }
+
+  export type TokenUsageMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    type: string | null
+    tokens: number | null
+    cost: number | null
+    isPaid: boolean | null
+    createdAt: Date | null
+  }
+
+  export type TokenUsageMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    type: string | null
+    tokens: number | null
+    cost: number | null
+    isPaid: boolean | null
+    createdAt: Date | null
+  }
+
+  export type TokenUsageCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    tokens: number
+    cost: number
+    isPaid: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type TokenUsageAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    tokens?: true
+    cost?: true
+  }
+
+  export type TokenUsageSumAggregateInputType = {
+    id?: true
+    userId?: true
+    tokens?: true
+    cost?: true
+  }
+
+  export type TokenUsageMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    tokens?: true
+    cost?: true
+    isPaid?: true
+    createdAt?: true
+  }
+
+  export type TokenUsageMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    tokens?: true
+    cost?: true
+    isPaid?: true
+    createdAt?: true
+  }
+
+  export type TokenUsageCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    tokens?: true
+    cost?: true
+    isPaid?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type TokenUsageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TokenUsage to aggregate.
+     */
+    where?: TokenUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenUsages to fetch.
+     */
+    orderBy?: TokenUsageOrderByWithRelationInput | TokenUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TokenUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TokenUsages
+    **/
+    _count?: true | TokenUsageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TokenUsageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TokenUsageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TokenUsageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TokenUsageMaxAggregateInputType
+  }
+
+  export type GetTokenUsageAggregateType<T extends TokenUsageAggregateArgs> = {
+        [P in keyof T & keyof AggregateTokenUsage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTokenUsage[P]>
+      : GetScalarType<T[P], AggregateTokenUsage[P]>
+  }
+
+
+
+
+  export type TokenUsageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TokenUsageWhereInput
+    orderBy?: TokenUsageOrderByWithAggregationInput | TokenUsageOrderByWithAggregationInput[]
+    by: TokenUsageScalarFieldEnum[] | TokenUsageScalarFieldEnum
+    having?: TokenUsageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TokenUsageCountAggregateInputType | true
+    _avg?: TokenUsageAvgAggregateInputType
+    _sum?: TokenUsageSumAggregateInputType
+    _min?: TokenUsageMinAggregateInputType
+    _max?: TokenUsageMaxAggregateInputType
+  }
+
+  export type TokenUsageGroupByOutputType = {
+    id: number
+    userId: number
+    type: string
+    tokens: number
+    cost: number
+    isPaid: boolean
+    createdAt: Date
+    _count: TokenUsageCountAggregateOutputType | null
+    _avg: TokenUsageAvgAggregateOutputType | null
+    _sum: TokenUsageSumAggregateOutputType | null
+    _min: TokenUsageMinAggregateOutputType | null
+    _max: TokenUsageMaxAggregateOutputType | null
+  }
+
+  type GetTokenUsageGroupByPayload<T extends TokenUsageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TokenUsageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TokenUsageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TokenUsageGroupByOutputType[P]>
+            : GetScalarType<T[P], TokenUsageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TokenUsageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    tokens?: boolean
+    cost?: boolean
+    isPaid?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tokenUsage"]>
+
+  export type TokenUsageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    tokens?: boolean
+    cost?: boolean
+    isPaid?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tokenUsage"]>
+
+  export type TokenUsageSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    tokens?: boolean
+    cost?: boolean
+    isPaid?: boolean
+    createdAt?: boolean
+  }
+
+  export type TokenUsageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TokenUsageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TokenUsagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TokenUsage"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      type: string
+      tokens: number
+      cost: number
+      isPaid: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["tokenUsage"]>
+    composites: {}
+  }
+
+  type TokenUsageGetPayload<S extends boolean | null | undefined | TokenUsageDefaultArgs> = $Result.GetResult<Prisma.$TokenUsagePayload, S>
+
+  type TokenUsageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TokenUsageFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TokenUsageCountAggregateInputType | true
+    }
+
+  export interface TokenUsageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TokenUsage'], meta: { name: 'TokenUsage' } }
+    /**
+     * Find zero or one TokenUsage that matches the filter.
+     * @param {TokenUsageFindUniqueArgs} args - Arguments to find a TokenUsage
+     * @example
+     * // Get one TokenUsage
+     * const tokenUsage = await prisma.tokenUsage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TokenUsageFindUniqueArgs>(args: SelectSubset<T, TokenUsageFindUniqueArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one TokenUsage that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TokenUsageFindUniqueOrThrowArgs} args - Arguments to find a TokenUsage
+     * @example
+     * // Get one TokenUsage
+     * const tokenUsage = await prisma.tokenUsage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TokenUsageFindUniqueOrThrowArgs>(args: SelectSubset<T, TokenUsageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first TokenUsage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageFindFirstArgs} args - Arguments to find a TokenUsage
+     * @example
+     * // Get one TokenUsage
+     * const tokenUsage = await prisma.tokenUsage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TokenUsageFindFirstArgs>(args?: SelectSubset<T, TokenUsageFindFirstArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first TokenUsage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageFindFirstOrThrowArgs} args - Arguments to find a TokenUsage
+     * @example
+     * // Get one TokenUsage
+     * const tokenUsage = await prisma.tokenUsage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TokenUsageFindFirstOrThrowArgs>(args?: SelectSubset<T, TokenUsageFindFirstOrThrowArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more TokenUsages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TokenUsages
+     * const tokenUsages = await prisma.tokenUsage.findMany()
+     * 
+     * // Get first 10 TokenUsages
+     * const tokenUsages = await prisma.tokenUsage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tokenUsageWithIdOnly = await prisma.tokenUsage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TokenUsageFindManyArgs>(args?: SelectSubset<T, TokenUsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a TokenUsage.
+     * @param {TokenUsageCreateArgs} args - Arguments to create a TokenUsage.
+     * @example
+     * // Create one TokenUsage
+     * const TokenUsage = await prisma.tokenUsage.create({
+     *   data: {
+     *     // ... data to create a TokenUsage
+     *   }
+     * })
+     * 
+     */
+    create<T extends TokenUsageCreateArgs>(args: SelectSubset<T, TokenUsageCreateArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many TokenUsages.
+     * @param {TokenUsageCreateManyArgs} args - Arguments to create many TokenUsages.
+     * @example
+     * // Create many TokenUsages
+     * const tokenUsage = await prisma.tokenUsage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TokenUsageCreateManyArgs>(args?: SelectSubset<T, TokenUsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TokenUsages and returns the data saved in the database.
+     * @param {TokenUsageCreateManyAndReturnArgs} args - Arguments to create many TokenUsages.
+     * @example
+     * // Create many TokenUsages
+     * const tokenUsage = await prisma.tokenUsage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TokenUsages and only return the `id`
+     * const tokenUsageWithIdOnly = await prisma.tokenUsage.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TokenUsageCreateManyAndReturnArgs>(args?: SelectSubset<T, TokenUsageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a TokenUsage.
+     * @param {TokenUsageDeleteArgs} args - Arguments to delete one TokenUsage.
+     * @example
+     * // Delete one TokenUsage
+     * const TokenUsage = await prisma.tokenUsage.delete({
+     *   where: {
+     *     // ... filter to delete one TokenUsage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TokenUsageDeleteArgs>(args: SelectSubset<T, TokenUsageDeleteArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one TokenUsage.
+     * @param {TokenUsageUpdateArgs} args - Arguments to update one TokenUsage.
+     * @example
+     * // Update one TokenUsage
+     * const tokenUsage = await prisma.tokenUsage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TokenUsageUpdateArgs>(args: SelectSubset<T, TokenUsageUpdateArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more TokenUsages.
+     * @param {TokenUsageDeleteManyArgs} args - Arguments to filter TokenUsages to delete.
+     * @example
+     * // Delete a few TokenUsages
+     * const { count } = await prisma.tokenUsage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TokenUsageDeleteManyArgs>(args?: SelectSubset<T, TokenUsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TokenUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TokenUsages
+     * const tokenUsage = await prisma.tokenUsage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TokenUsageUpdateManyArgs>(args: SelectSubset<T, TokenUsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one TokenUsage.
+     * @param {TokenUsageUpsertArgs} args - Arguments to update or create a TokenUsage.
+     * @example
+     * // Update or create a TokenUsage
+     * const tokenUsage = await prisma.tokenUsage.upsert({
+     *   create: {
+     *     // ... data to create a TokenUsage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TokenUsage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TokenUsageUpsertArgs>(args: SelectSubset<T, TokenUsageUpsertArgs<ExtArgs>>): Prisma__TokenUsageClient<$Result.GetResult<Prisma.$TokenUsagePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of TokenUsages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageCountArgs} args - Arguments to filter TokenUsages to count.
+     * @example
+     * // Count the number of TokenUsages
+     * const count = await prisma.tokenUsage.count({
+     *   where: {
+     *     // ... the filter for the TokenUsages we want to count
+     *   }
+     * })
+    **/
+    count<T extends TokenUsageCountArgs>(
+      args?: Subset<T, TokenUsageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TokenUsageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TokenUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TokenUsageAggregateArgs>(args: Subset<T, TokenUsageAggregateArgs>): Prisma.PrismaPromise<GetTokenUsageAggregateType<T>>
+
+    /**
+     * Group by TokenUsage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TokenUsageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TokenUsageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TokenUsageGroupByArgs['orderBy'] }
+        : { orderBy?: TokenUsageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TokenUsageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTokenUsageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TokenUsage model
+   */
+  readonly fields: TokenUsageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TokenUsage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TokenUsageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TokenUsage model
+   */ 
+  interface TokenUsageFieldRefs {
+    readonly id: FieldRef<"TokenUsage", 'Int'>
+    readonly userId: FieldRef<"TokenUsage", 'Int'>
+    readonly type: FieldRef<"TokenUsage", 'String'>
+    readonly tokens: FieldRef<"TokenUsage", 'Int'>
+    readonly cost: FieldRef<"TokenUsage", 'Int'>
+    readonly isPaid: FieldRef<"TokenUsage", 'Boolean'>
+    readonly createdAt: FieldRef<"TokenUsage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TokenUsage findUnique
+   */
+  export type TokenUsageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenUsage to fetch.
+     */
+    where: TokenUsageWhereUniqueInput
+  }
+
+  /**
+   * TokenUsage findUniqueOrThrow
+   */
+  export type TokenUsageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenUsage to fetch.
+     */
+    where: TokenUsageWhereUniqueInput
+  }
+
+  /**
+   * TokenUsage findFirst
+   */
+  export type TokenUsageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenUsage to fetch.
+     */
+    where?: TokenUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenUsages to fetch.
+     */
+    orderBy?: TokenUsageOrderByWithRelationInput | TokenUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TokenUsages.
+     */
+    cursor?: TokenUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TokenUsages.
+     */
+    distinct?: TokenUsageScalarFieldEnum | TokenUsageScalarFieldEnum[]
+  }
+
+  /**
+   * TokenUsage findFirstOrThrow
+   */
+  export type TokenUsageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenUsage to fetch.
+     */
+    where?: TokenUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenUsages to fetch.
+     */
+    orderBy?: TokenUsageOrderByWithRelationInput | TokenUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TokenUsages.
+     */
+    cursor?: TokenUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenUsages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TokenUsages.
+     */
+    distinct?: TokenUsageScalarFieldEnum | TokenUsageScalarFieldEnum[]
+  }
+
+  /**
+   * TokenUsage findMany
+   */
+  export type TokenUsageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * Filter, which TokenUsages to fetch.
+     */
+    where?: TokenUsageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TokenUsages to fetch.
+     */
+    orderBy?: TokenUsageOrderByWithRelationInput | TokenUsageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TokenUsages.
+     */
+    cursor?: TokenUsageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TokenUsages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TokenUsages.
+     */
+    skip?: number
+    distinct?: TokenUsageScalarFieldEnum | TokenUsageScalarFieldEnum[]
+  }
+
+  /**
+   * TokenUsage create
+   */
+  export type TokenUsageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TokenUsage.
+     */
+    data: XOR<TokenUsageCreateInput, TokenUsageUncheckedCreateInput>
+  }
+
+  /**
+   * TokenUsage createMany
+   */
+  export type TokenUsageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TokenUsages.
+     */
+    data: TokenUsageCreateManyInput | TokenUsageCreateManyInput[]
+  }
+
+  /**
+   * TokenUsage createManyAndReturn
+   */
+  export type TokenUsageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many TokenUsages.
+     */
+    data: TokenUsageCreateManyInput | TokenUsageCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TokenUsage update
+   */
+  export type TokenUsageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TokenUsage.
+     */
+    data: XOR<TokenUsageUpdateInput, TokenUsageUncheckedUpdateInput>
+    /**
+     * Choose, which TokenUsage to update.
+     */
+    where: TokenUsageWhereUniqueInput
+  }
+
+  /**
+   * TokenUsage updateMany
+   */
+  export type TokenUsageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TokenUsages.
+     */
+    data: XOR<TokenUsageUpdateManyMutationInput, TokenUsageUncheckedUpdateManyInput>
+    /**
+     * Filter which TokenUsages to update
+     */
+    where?: TokenUsageWhereInput
+  }
+
+  /**
+   * TokenUsage upsert
+   */
+  export type TokenUsageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TokenUsage to update in case it exists.
+     */
+    where: TokenUsageWhereUniqueInput
+    /**
+     * In case the TokenUsage found by the `where` argument doesn't exist, create a new TokenUsage with this data.
+     */
+    create: XOR<TokenUsageCreateInput, TokenUsageUncheckedCreateInput>
+    /**
+     * In case the TokenUsage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TokenUsageUpdateInput, TokenUsageUncheckedUpdateInput>
+  }
+
+  /**
+   * TokenUsage delete
+   */
+  export type TokenUsageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+    /**
+     * Filter which TokenUsage to delete.
+     */
+    where: TokenUsageWhereUniqueInput
+  }
+
+  /**
+   * TokenUsage deleteMany
+   */
+  export type TokenUsageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TokenUsages to delete
+     */
+    where?: TokenUsageWhereInput
+  }
+
+  /**
+   * TokenUsage without action
+   */
+  export type TokenUsageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TokenUsage
+     */
+    select?: TokenUsageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TokenUsageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model DivinationRecord
    */
 
@@ -2277,11 +4374,13 @@ export namespace Prisma {
   export type DivinationRecordAvgAggregateOutputType = {
     id: number | null
     userId: number | null
+    cost: number | null
   }
 
   export type DivinationRecordSumAggregateOutputType = {
     id: number | null
     userId: number | null
+    cost: number | null
   }
 
   export type DivinationRecordMinAggregateOutputType = {
@@ -2290,6 +4389,9 @@ export namespace Prisma {
     type: string | null
     inputData: string | null
     result: string | null
+    detailResult: string | null
+    isPaid: boolean | null
+    cost: number | null
     createdAt: Date | null
   }
 
@@ -2299,6 +4401,9 @@ export namespace Prisma {
     type: string | null
     inputData: string | null
     result: string | null
+    detailResult: string | null
+    isPaid: boolean | null
+    cost: number | null
     createdAt: Date | null
   }
 
@@ -2308,6 +4413,9 @@ export namespace Prisma {
     type: number
     inputData: number
     result: number
+    detailResult: number
+    isPaid: number
+    cost: number
     createdAt: number
     _all: number
   }
@@ -2316,11 +4424,13 @@ export namespace Prisma {
   export type DivinationRecordAvgAggregateInputType = {
     id?: true
     userId?: true
+    cost?: true
   }
 
   export type DivinationRecordSumAggregateInputType = {
     id?: true
     userId?: true
+    cost?: true
   }
 
   export type DivinationRecordMinAggregateInputType = {
@@ -2329,6 +4439,9 @@ export namespace Prisma {
     type?: true
     inputData?: true
     result?: true
+    detailResult?: true
+    isPaid?: true
+    cost?: true
     createdAt?: true
   }
 
@@ -2338,6 +4451,9 @@ export namespace Prisma {
     type?: true
     inputData?: true
     result?: true
+    detailResult?: true
+    isPaid?: true
+    cost?: true
     createdAt?: true
   }
 
@@ -2347,6 +4463,9 @@ export namespace Prisma {
     type?: true
     inputData?: true
     result?: true
+    detailResult?: true
+    isPaid?: true
+    cost?: true
     createdAt?: true
     _all?: true
   }
@@ -2443,6 +4562,9 @@ export namespace Prisma {
     type: string
     inputData: string
     result: string
+    detailResult: string | null
+    isPaid: boolean
+    cost: number
     createdAt: Date
     _count: DivinationRecordCountAggregateOutputType | null
     _avg: DivinationRecordAvgAggregateOutputType | null
@@ -2471,6 +4593,9 @@ export namespace Prisma {
     type?: boolean
     inputData?: boolean
     result?: boolean
+    detailResult?: boolean
+    isPaid?: boolean
+    cost?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["divinationRecord"]>
@@ -2481,6 +4606,9 @@ export namespace Prisma {
     type?: boolean
     inputData?: boolean
     result?: boolean
+    detailResult?: boolean
+    isPaid?: boolean
+    cost?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["divinationRecord"]>
@@ -2491,6 +4619,9 @@ export namespace Prisma {
     type?: boolean
     inputData?: boolean
     result?: boolean
+    detailResult?: boolean
+    isPaid?: boolean
+    cost?: boolean
     createdAt?: boolean
   }
 
@@ -2512,6 +4643,9 @@ export namespace Prisma {
       type: string
       inputData: string
       result: string
+      detailResult: string | null
+      isPaid: boolean
+      cost: number
       createdAt: Date
     }, ExtArgs["result"]["divinationRecord"]>
     composites: {}
@@ -2912,6 +5046,9 @@ export namespace Prisma {
     readonly type: FieldRef<"DivinationRecord", 'String'>
     readonly inputData: FieldRef<"DivinationRecord", 'String'>
     readonly result: FieldRef<"DivinationRecord", 'String'>
+    readonly detailResult: FieldRef<"DivinationRecord", 'String'>
+    readonly isPaid: FieldRef<"DivinationRecord", 'Boolean'>
+    readonly cost: FieldRef<"DivinationRecord", 'Int'>
     readonly createdAt: FieldRef<"DivinationRecord", 'DateTime'>
   }
     
@@ -5120,999 +7257,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Subscription
-   */
-
-  export type AggregateSubscription = {
-    _count: SubscriptionCountAggregateOutputType | null
-    _avg: SubscriptionAvgAggregateOutputType | null
-    _sum: SubscriptionSumAggregateOutputType | null
-    _min: SubscriptionMinAggregateOutputType | null
-    _max: SubscriptionMaxAggregateOutputType | null
-  }
-
-  export type SubscriptionAvgAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type SubscriptionSumAggregateOutputType = {
-    id: number | null
-    userId: number | null
-  }
-
-  export type SubscriptionMinAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    plan: string | null
-    status: string | null
-    startAt: Date | null
-    endAt: Date | null
-    createdAt: Date | null
-  }
-
-  export type SubscriptionMaxAggregateOutputType = {
-    id: number | null
-    userId: number | null
-    plan: string | null
-    status: string | null
-    startAt: Date | null
-    endAt: Date | null
-    createdAt: Date | null
-  }
-
-  export type SubscriptionCountAggregateOutputType = {
-    id: number
-    userId: number
-    plan: number
-    status: number
-    startAt: number
-    endAt: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type SubscriptionAvgAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type SubscriptionSumAggregateInputType = {
-    id?: true
-    userId?: true
-  }
-
-  export type SubscriptionMinAggregateInputType = {
-    id?: true
-    userId?: true
-    plan?: true
-    status?: true
-    startAt?: true
-    endAt?: true
-    createdAt?: true
-  }
-
-  export type SubscriptionMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    plan?: true
-    status?: true
-    startAt?: true
-    endAt?: true
-    createdAt?: true
-  }
-
-  export type SubscriptionCountAggregateInputType = {
-    id?: true
-    userId?: true
-    plan?: true
-    status?: true
-    startAt?: true
-    endAt?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Subscription to aggregate.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Subscriptions
-    **/
-    _count?: true | SubscriptionCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SubscriptionAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SubscriptionSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SubscriptionMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SubscriptionMaxAggregateInputType
-  }
-
-  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
-        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSubscription[P]>
-      : GetScalarType<T[P], AggregateSubscription[P]>
-  }
-
-
-
-
-  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SubscriptionWhereInput
-    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
-    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
-    having?: SubscriptionScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SubscriptionCountAggregateInputType | true
-    _avg?: SubscriptionAvgAggregateInputType
-    _sum?: SubscriptionSumAggregateInputType
-    _min?: SubscriptionMinAggregateInputType
-    _max?: SubscriptionMaxAggregateInputType
-  }
-
-  export type SubscriptionGroupByOutputType = {
-    id: number
-    userId: number
-    plan: string
-    status: string
-    startAt: Date
-    endAt: Date | null
-    createdAt: Date
-    _count: SubscriptionCountAggregateOutputType | null
-    _avg: SubscriptionAvgAggregateOutputType | null
-    _sum: SubscriptionSumAggregateOutputType | null
-    _min: SubscriptionMinAggregateOutputType | null
-    _max: SubscriptionMaxAggregateOutputType | null
-  }
-
-  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
-            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    plan?: boolean
-    status?: boolean
-    startAt?: boolean
-    endAt?: boolean
-    createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["subscription"]>
-
-  export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    plan?: boolean
-    status?: boolean
-    startAt?: boolean
-    endAt?: boolean
-    createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["subscription"]>
-
-  export type SubscriptionSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    plan?: boolean
-    status?: boolean
-    startAt?: boolean
-    endAt?: boolean
-    createdAt?: boolean
-  }
-
-  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Subscription"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      userId: number
-      plan: string
-      status: string
-      startAt: Date
-      endAt: Date | null
-      createdAt: Date
-    }, ExtArgs["result"]["subscription"]>
-    composites: {}
-  }
-
-  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
-
-  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: SubscriptionCountAggregateInputType | true
-    }
-
-  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
-    /**
-     * Find zero or one Subscription that matches the filter.
-     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
-
-    /**
-     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'` 
-     * if no matches were found.
-     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
-
-    /**
-     * Find the first Subscription that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
-
-    /**
-     * Find the first Subscription that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
-
-    /**
-     * Find zero or more Subscriptions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Subscriptions
-     * const subscriptions = await prisma.subscription.findMany()
-     * 
-     * // Get first 10 Subscriptions
-     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany">>
-
-    /**
-     * Create a Subscription.
-     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
-     * @example
-     * // Create one Subscription
-     * const Subscription = await prisma.subscription.create({
-     *   data: {
-     *     // ... data to create a Subscription
-     *   }
-     * })
-     * 
-     */
-    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create">, never, ExtArgs>
-
-    /**
-     * Create many Subscriptions.
-     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
-     * @example
-     * // Create many Subscriptions
-     * const subscription = await prisma.subscription.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Subscriptions and returns the data saved in the database.
-     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
-     * @example
-     * // Create many Subscriptions
-     * const subscription = await prisma.subscription.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Subscriptions and only return the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({ 
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "createManyAndReturn">>
-
-    /**
-     * Delete a Subscription.
-     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
-     * @example
-     * // Delete one Subscription
-     * const Subscription = await prisma.subscription.delete({
-     *   where: {
-     *     // ... filter to delete one Subscription
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
-
-    /**
-     * Update one Subscription.
-     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
-     * @example
-     * // Update one Subscription
-     * const subscription = await prisma.subscription.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update">, never, ExtArgs>
-
-    /**
-     * Delete zero or more Subscriptions.
-     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
-     * @example
-     * // Delete a few Subscriptions
-     * const { count } = await prisma.subscription.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Subscriptions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Subscriptions
-     * const subscription = await prisma.subscription.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Subscription.
-     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
-     * @example
-     * // Update or create a Subscription
-     * const subscription = await prisma.subscription.upsert({
-     *   create: {
-     *     // ... data to create a Subscription
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Subscription we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
-
-
-    /**
-     * Count the number of Subscriptions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
-     * @example
-     * // Count the number of Subscriptions
-     * const count = await prisma.subscription.count({
-     *   where: {
-     *     // ... the filter for the Subscriptions we want to count
-     *   }
-     * })
-    **/
-    count<T extends SubscriptionCountArgs>(
-      args?: Subset<T, SubscriptionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Subscription.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
-
-    /**
-     * Group by Subscription.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SubscriptionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
-        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Subscription model
-   */
-  readonly fields: SubscriptionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Subscription.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Subscription model
-   */ 
-  interface SubscriptionFieldRefs {
-    readonly id: FieldRef<"Subscription", 'Int'>
-    readonly userId: FieldRef<"Subscription", 'Int'>
-    readonly plan: FieldRef<"Subscription", 'String'>
-    readonly status: FieldRef<"Subscription", 'String'>
-    readonly startAt: FieldRef<"Subscription", 'DateTime'>
-    readonly endAt: FieldRef<"Subscription", 'DateTime'>
-    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Subscription findUnique
-   */
-  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription findUniqueOrThrow
-   */
-  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription findFirst
-   */
-  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subscriptions.
-     */
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
-  }
-
-  /**
-   * Subscription findFirstOrThrow
-   */
-  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subscriptions.
-     */
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
-  }
-
-  /**
-   * Subscription findMany
-   */
-  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscriptions to fetch.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
-  }
-
-  /**
-   * Subscription create
-   */
-  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Subscription.
-     */
-    data: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
-  }
-
-  /**
-   * Subscription createMany
-   */
-  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Subscriptions.
-     */
-    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
-  }
-
-  /**
-   * Subscription createManyAndReturn
-   */
-  export type SubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * The data used to create many Subscriptions.
-     */
-    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Subscription update
-   */
-  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Subscription.
-     */
-    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
-    /**
-     * Choose, which Subscription to update.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription updateMany
-   */
-  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Subscriptions.
-     */
-    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
-    /**
-     * Filter which Subscriptions to update
-     */
-    where?: SubscriptionWhereInput
-  }
-
-  /**
-   * Subscription upsert
-   */
-  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Subscription to update in case it exists.
-     */
-    where: SubscriptionWhereUniqueInput
-    /**
-     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
-     */
-    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
-    /**
-     * In case the Subscription was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
-  }
-
-  /**
-   * Subscription delete
-   */
-  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter which Subscription to delete.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription deleteMany
-   */
-  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Subscriptions to delete
-     */
-    where?: SubscriptionWhereInput
-  }
-
-  /**
-   * Subscription without action
-   */
-  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -6138,12 +7282,39 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const TokenBalanceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    balance: 'balance',
+    totalPurchased: 'totalPurchased',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TokenBalanceScalarFieldEnum = (typeof TokenBalanceScalarFieldEnum)[keyof typeof TokenBalanceScalarFieldEnum]
+
+
+  export const TokenUsageScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    tokens: 'tokens',
+    cost: 'cost',
+    isPaid: 'isPaid',
+    createdAt: 'createdAt'
+  };
+
+  export type TokenUsageScalarFieldEnum = (typeof TokenUsageScalarFieldEnum)[keyof typeof TokenUsageScalarFieldEnum]
+
+
   export const DivinationRecordScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     type: 'type',
     inputData: 'inputData',
     result: 'result',
+    detailResult: 'detailResult',
+    isPaid: 'isPaid',
+    cost: 'cost',
     createdAt: 'createdAt'
   };
 
@@ -6174,19 +7345,6 @@ export namespace Prisma {
   };
 
   export type CharacterDataScalarFieldEnum = (typeof CharacterDataScalarFieldEnum)[keyof typeof CharacterDataScalarFieldEnum]
-
-
-  export const SubscriptionScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    plan: 'plan',
-    status: 'status',
-    startAt: 'startAt',
-    endAt: 'endAt',
-    createdAt: 'createdAt'
-  };
-
-  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6232,6 +7390,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -6255,7 +7420,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     divinationRecords?: DivinationRecordListRelationFilter
-    subscription?: XOR<SubscriptionNullableRelationFilter, SubscriptionWhereInput> | null
+    tokenBalance?: XOR<TokenBalanceNullableRelationFilter, TokenBalanceWhereInput> | null
+    tokenUsage?: TokenUsageListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6269,7 +7435,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     divinationRecords?: DivinationRecordOrderByRelationAggregateInput
-    subscription?: SubscriptionOrderByWithRelationInput
+    tokenBalance?: TokenBalanceOrderByWithRelationInput
+    tokenUsage?: TokenUsageOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6286,7 +7453,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     divinationRecords?: DivinationRecordListRelationFilter
-    subscription?: XOR<SubscriptionNullableRelationFilter, SubscriptionWhereInput> | null
+    tokenBalance?: XOR<TokenBalanceNullableRelationFilter, TokenBalanceWhereInput> | null
+    tokenUsage?: TokenUsageListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -6321,6 +7489,130 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type TokenBalanceWhereInput = {
+    AND?: TokenBalanceWhereInput | TokenBalanceWhereInput[]
+    OR?: TokenBalanceWhereInput[]
+    NOT?: TokenBalanceWhereInput | TokenBalanceWhereInput[]
+    id?: IntFilter<"TokenBalance"> | number
+    userId?: IntFilter<"TokenBalance"> | number
+    balance?: IntFilter<"TokenBalance"> | number
+    totalPurchased?: IntFilter<"TokenBalance"> | number
+    updatedAt?: DateTimeFilter<"TokenBalance"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type TokenBalanceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TokenBalanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    userId?: number
+    AND?: TokenBalanceWhereInput | TokenBalanceWhereInput[]
+    OR?: TokenBalanceWhereInput[]
+    NOT?: TokenBalanceWhereInput | TokenBalanceWhereInput[]
+    balance?: IntFilter<"TokenBalance"> | number
+    totalPurchased?: IntFilter<"TokenBalance"> | number
+    updatedAt?: DateTimeFilter<"TokenBalance"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type TokenBalanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TokenBalanceCountOrderByAggregateInput
+    _avg?: TokenBalanceAvgOrderByAggregateInput
+    _max?: TokenBalanceMaxOrderByAggregateInput
+    _min?: TokenBalanceMinOrderByAggregateInput
+    _sum?: TokenBalanceSumOrderByAggregateInput
+  }
+
+  export type TokenBalanceScalarWhereWithAggregatesInput = {
+    AND?: TokenBalanceScalarWhereWithAggregatesInput | TokenBalanceScalarWhereWithAggregatesInput[]
+    OR?: TokenBalanceScalarWhereWithAggregatesInput[]
+    NOT?: TokenBalanceScalarWhereWithAggregatesInput | TokenBalanceScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TokenBalance"> | number
+    userId?: IntWithAggregatesFilter<"TokenBalance"> | number
+    balance?: IntWithAggregatesFilter<"TokenBalance"> | number
+    totalPurchased?: IntWithAggregatesFilter<"TokenBalance"> | number
+    updatedAt?: DateTimeWithAggregatesFilter<"TokenBalance"> | Date | string
+  }
+
+  export type TokenUsageWhereInput = {
+    AND?: TokenUsageWhereInput | TokenUsageWhereInput[]
+    OR?: TokenUsageWhereInput[]
+    NOT?: TokenUsageWhereInput | TokenUsageWhereInput[]
+    id?: IntFilter<"TokenUsage"> | number
+    userId?: IntFilter<"TokenUsage"> | number
+    type?: StringFilter<"TokenUsage"> | string
+    tokens?: IntFilter<"TokenUsage"> | number
+    cost?: IntFilter<"TokenUsage"> | number
+    isPaid?: BoolFilter<"TokenUsage"> | boolean
+    createdAt?: DateTimeFilter<"TokenUsage"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }
+
+  export type TokenUsageOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+    isPaid?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TokenUsageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: TokenUsageWhereInput | TokenUsageWhereInput[]
+    OR?: TokenUsageWhereInput[]
+    NOT?: TokenUsageWhereInput | TokenUsageWhereInput[]
+    userId?: IntFilter<"TokenUsage"> | number
+    type?: StringFilter<"TokenUsage"> | string
+    tokens?: IntFilter<"TokenUsage"> | number
+    cost?: IntFilter<"TokenUsage"> | number
+    isPaid?: BoolFilter<"TokenUsage"> | boolean
+    createdAt?: DateTimeFilter<"TokenUsage"> | Date | string
+    user?: XOR<UserRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type TokenUsageOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+    isPaid?: SortOrder
+    createdAt?: SortOrder
+    _count?: TokenUsageCountOrderByAggregateInput
+    _avg?: TokenUsageAvgOrderByAggregateInput
+    _max?: TokenUsageMaxOrderByAggregateInput
+    _min?: TokenUsageMinOrderByAggregateInput
+    _sum?: TokenUsageSumOrderByAggregateInput
+  }
+
+  export type TokenUsageScalarWhereWithAggregatesInput = {
+    AND?: TokenUsageScalarWhereWithAggregatesInput | TokenUsageScalarWhereWithAggregatesInput[]
+    OR?: TokenUsageScalarWhereWithAggregatesInput[]
+    NOT?: TokenUsageScalarWhereWithAggregatesInput | TokenUsageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TokenUsage"> | number
+    userId?: IntWithAggregatesFilter<"TokenUsage"> | number
+    type?: StringWithAggregatesFilter<"TokenUsage"> | string
+    tokens?: IntWithAggregatesFilter<"TokenUsage"> | number
+    cost?: IntWithAggregatesFilter<"TokenUsage"> | number
+    isPaid?: BoolWithAggregatesFilter<"TokenUsage"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"TokenUsage"> | Date | string
+  }
+
   export type DivinationRecordWhereInput = {
     AND?: DivinationRecordWhereInput | DivinationRecordWhereInput[]
     OR?: DivinationRecordWhereInput[]
@@ -6330,6 +7622,9 @@ export namespace Prisma {
     type?: StringFilter<"DivinationRecord"> | string
     inputData?: StringFilter<"DivinationRecord"> | string
     result?: StringFilter<"DivinationRecord"> | string
+    detailResult?: StringNullableFilter<"DivinationRecord"> | string | null
+    isPaid?: BoolFilter<"DivinationRecord"> | boolean
+    cost?: IntFilter<"DivinationRecord"> | number
     createdAt?: DateTimeFilter<"DivinationRecord"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -6340,6 +7635,9 @@ export namespace Prisma {
     type?: SortOrder
     inputData?: SortOrder
     result?: SortOrder
+    detailResult?: SortOrderInput | SortOrder
+    isPaid?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -6353,6 +7651,9 @@ export namespace Prisma {
     type?: StringFilter<"DivinationRecord"> | string
     inputData?: StringFilter<"DivinationRecord"> | string
     result?: StringFilter<"DivinationRecord"> | string
+    detailResult?: StringNullableFilter<"DivinationRecord"> | string | null
+    isPaid?: BoolFilter<"DivinationRecord"> | boolean
+    cost?: IntFilter<"DivinationRecord"> | number
     createdAt?: DateTimeFilter<"DivinationRecord"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
@@ -6363,6 +7664,9 @@ export namespace Prisma {
     type?: SortOrder
     inputData?: SortOrder
     result?: SortOrder
+    detailResult?: SortOrderInput | SortOrder
+    isPaid?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
     _count?: DivinationRecordCountOrderByAggregateInput
     _avg?: DivinationRecordAvgOrderByAggregateInput
@@ -6380,6 +7684,9 @@ export namespace Prisma {
     type?: StringWithAggregatesFilter<"DivinationRecord"> | string
     inputData?: StringWithAggregatesFilter<"DivinationRecord"> | string
     result?: StringWithAggregatesFilter<"DivinationRecord"> | string
+    detailResult?: StringNullableWithAggregatesFilter<"DivinationRecord"> | string | null
+    isPaid?: BoolWithAggregatesFilter<"DivinationRecord"> | boolean
+    cost?: IntWithAggregatesFilter<"DivinationRecord"> | number
     createdAt?: DateTimeWithAggregatesFilter<"DivinationRecord"> | Date | string
   }
 
@@ -6511,73 +7818,6 @@ export namespace Prisma {
     kangxiStroke?: IntNullableWithAggregatesFilter<"CharacterData"> | number | null
   }
 
-  export type SubscriptionWhereInput = {
-    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    OR?: SubscriptionWhereInput[]
-    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    id?: IntFilter<"Subscription"> | number
-    userId?: IntFilter<"Subscription"> | number
-    plan?: StringFilter<"Subscription"> | string
-    status?: StringFilter<"Subscription"> | string
-    startAt?: DateTimeFilter<"Subscription"> | Date | string
-    endAt?: DateTimeNullableFilter<"Subscription"> | Date | string | null
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-  }
-
-  export type SubscriptionOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    plan?: SortOrder
-    status?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    userId?: number
-    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    OR?: SubscriptionWhereInput[]
-    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    plan?: StringFilter<"Subscription"> | string
-    status?: StringFilter<"Subscription"> | string
-    startAt?: DateTimeFilter<"Subscription"> | Date | string
-    endAt?: DateTimeNullableFilter<"Subscription"> | Date | string | null
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-  }, "id" | "userId">
-
-  export type SubscriptionOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    plan?: SortOrder
-    status?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    _count?: SubscriptionCountOrderByAggregateInput
-    _avg?: SubscriptionAvgOrderByAggregateInput
-    _max?: SubscriptionMaxOrderByAggregateInput
-    _min?: SubscriptionMinOrderByAggregateInput
-    _sum?: SubscriptionSumOrderByAggregateInput
-  }
-
-  export type SubscriptionScalarWhereWithAggregatesInput = {
-    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
-    OR?: SubscriptionScalarWhereWithAggregatesInput[]
-    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Subscription"> | number
-    userId?: IntWithAggregatesFilter<"Subscription"> | number
-    plan?: StringWithAggregatesFilter<"Subscription"> | string
-    status?: StringWithAggregatesFilter<"Subscription"> | string
-    startAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
-    endAt?: DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
-  }
-
   export type UserCreateInput = {
     name: string
     email?: string | null
@@ -6588,7 +7828,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     divinationRecords?: DivinationRecordCreateNestedManyWithoutUserInput
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    tokenBalance?: TokenBalanceCreateNestedOneWithoutUserInput
+    tokenUsage?: TokenUsageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6602,7 +7843,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     divinationRecords?: DivinationRecordUncheckedCreateNestedManyWithoutUserInput
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    tokenBalance?: TokenBalanceUncheckedCreateNestedOneWithoutUserInput
+    tokenUsage?: TokenUsageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6615,7 +7857,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     divinationRecords?: DivinationRecordUpdateManyWithoutUserNestedInput
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    tokenBalance?: TokenBalanceUpdateOneWithoutUserNestedInput
+    tokenUsage?: TokenUsageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6629,7 +7872,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     divinationRecords?: DivinationRecordUncheckedUpdateManyWithoutUserNestedInput
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    tokenBalance?: TokenBalanceUncheckedUpdateOneWithoutUserNestedInput
+    tokenUsage?: TokenUsageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6667,10 +7911,131 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TokenBalanceCreateInput = {
+    balance?: number
+    totalPurchased?: number
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTokenBalanceInput
+  }
+
+  export type TokenBalanceUncheckedCreateInput = {
+    id?: number
+    userId: number
+    balance?: number
+    totalPurchased?: number
+    updatedAt?: Date | string
+  }
+
+  export type TokenBalanceUpdateInput = {
+    balance?: IntFieldUpdateOperationsInput | number
+    totalPurchased?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTokenBalanceNestedInput
+  }
+
+  export type TokenBalanceUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    balance?: IntFieldUpdateOperationsInput | number
+    totalPurchased?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenBalanceCreateManyInput = {
+    id?: number
+    userId: number
+    balance?: number
+    totalPurchased?: number
+    updatedAt?: Date | string
+  }
+
+  export type TokenBalanceUpdateManyMutationInput = {
+    balance?: IntFieldUpdateOperationsInput | number
+    totalPurchased?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenBalanceUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    balance?: IntFieldUpdateOperationsInput | number
+    totalPurchased?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageCreateInput = {
+    type: string
+    tokens: number
+    cost: number
+    isPaid?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutTokenUsageInput
+  }
+
+  export type TokenUsageUncheckedCreateInput = {
+    id?: number
+    userId: number
+    type: string
+    tokens: number
+    cost: number
+    isPaid?: boolean
+    createdAt?: Date | string
+  }
+
+  export type TokenUsageUpdateInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTokenUsageNestedInput
+  }
+
+  export type TokenUsageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageCreateManyInput = {
+    id?: number
+    userId: number
+    type: string
+    tokens: number
+    cost: number
+    isPaid?: boolean
+    createdAt?: Date | string
+  }
+
+  export type TokenUsageUpdateManyMutationInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DivinationRecordCreateInput = {
     type: string
     inputData: string
     result: string
+    detailResult?: string | null
+    isPaid?: boolean
+    cost?: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutDivinationRecordsInput
   }
@@ -6681,6 +8046,9 @@ export namespace Prisma {
     type: string
     inputData: string
     result: string
+    detailResult?: string | null
+    isPaid?: boolean
+    cost?: number
     createdAt?: Date | string
   }
 
@@ -6688,6 +8056,9 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDivinationRecordsNestedInput
   }
@@ -6698,6 +8069,9 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6707,6 +8081,9 @@ export namespace Prisma {
     type: string
     inputData: string
     result: string
+    detailResult?: string | null
+    isPaid?: boolean
+    cost?: number
     createdAt?: Date | string
   }
 
@@ -6714,6 +8091,9 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6723,6 +8103,9 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -6860,72 +8243,6 @@ export namespace Prisma {
     kangxiStroke?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type SubscriptionCreateInput = {
-    plan: string
-    status: string
-    startAt: Date | string
-    endAt?: Date | string | null
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutSubscriptionInput
-  }
-
-  export type SubscriptionUncheckedCreateInput = {
-    id?: number
-    userId: number
-    plan: string
-    status: string
-    startAt: Date | string
-    endAt?: Date | string | null
-    createdAt?: Date | string
-  }
-
-  export type SubscriptionUpdateInput = {
-    plan?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutSubscriptionNestedInput
-  }
-
-  export type SubscriptionUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    plan?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SubscriptionCreateManyInput = {
-    id?: number
-    userId: number
-    plan: string
-    status: string
-    startAt: Date | string
-    endAt?: Date | string | null
-    createdAt?: Date | string
-  }
-
-  export type SubscriptionUpdateManyMutationInput = {
-    plan?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SubscriptionUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    plan?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -6982,9 +8299,15 @@ export namespace Prisma {
     none?: DivinationRecordWhereInput
   }
 
-  export type SubscriptionNullableRelationFilter = {
-    is?: SubscriptionWhereInput | null
-    isNot?: SubscriptionWhereInput | null
+  export type TokenBalanceNullableRelationFilter = {
+    is?: TokenBalanceWhereInput | null
+    isNot?: TokenBalanceWhereInput | null
+  }
+
+  export type TokenUsageListRelationFilter = {
+    every?: TokenUsageWhereInput
+    some?: TokenUsageWhereInput
+    none?: TokenUsageWhereInput
   }
 
   export type SortOrderInput = {
@@ -6993,6 +8316,10 @@ export namespace Prisma {
   }
 
   export type DivinationRecordOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TokenUsageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7109,18 +8436,117 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type TokenBalanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TokenBalanceAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+  }
+
+  export type TokenBalanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TokenBalanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TokenBalanceSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    balance?: SortOrder
+    totalPurchased?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type TokenUsageCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+    isPaid?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TokenUsageAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+  }
+
+  export type TokenUsageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+    isPaid?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TokenUsageMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+    isPaid?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type TokenUsageSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tokens?: SortOrder
+    cost?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DivinationRecordCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     type?: SortOrder
     inputData?: SortOrder
     result?: SortOrder
+    detailResult?: SortOrder
+    isPaid?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
   }
 
   export type DivinationRecordAvgOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    cost?: SortOrder
   }
 
   export type DivinationRecordMaxOrderByAggregateInput = {
@@ -7129,6 +8555,9 @@ export namespace Prisma {
     type?: SortOrder
     inputData?: SortOrder
     result?: SortOrder
+    detailResult?: SortOrder
+    isPaid?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -7138,12 +8567,16 @@ export namespace Prisma {
     type?: SortOrder
     inputData?: SortOrder
     result?: SortOrder
+    detailResult?: SortOrder
+    isPaid?: SortOrder
+    cost?: SortOrder
     createdAt?: SortOrder
   }
 
   export type DivinationRecordSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    cost?: SortOrder
   }
 
   export type GuaDataCountOrderByAggregateInput = {
@@ -7253,71 +8686,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type SubscriptionCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    plan?: SortOrder
-    status?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SubscriptionAvgOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type SubscriptionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    plan?: SortOrder
-    status?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SubscriptionMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    plan?: SortOrder
-    status?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type SubscriptionSumOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type DivinationRecordCreateNestedManyWithoutUserInput = {
     create?: XOR<DivinationRecordCreateWithoutUserInput, DivinationRecordUncheckedCreateWithoutUserInput> | DivinationRecordCreateWithoutUserInput[] | DivinationRecordUncheckedCreateWithoutUserInput[]
     connectOrCreate?: DivinationRecordCreateOrConnectWithoutUserInput | DivinationRecordCreateOrConnectWithoutUserInput[]
@@ -7325,10 +8693,17 @@ export namespace Prisma {
     connect?: DivinationRecordWhereUniqueInput | DivinationRecordWhereUniqueInput[]
   }
 
-  export type SubscriptionCreateNestedOneWithoutUserInput = {
-    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
-    connect?: SubscriptionWhereUniqueInput
+  export type TokenBalanceCreateNestedOneWithoutUserInput = {
+    create?: XOR<TokenBalanceCreateWithoutUserInput, TokenBalanceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TokenBalanceCreateOrConnectWithoutUserInput
+    connect?: TokenBalanceWhereUniqueInput
+  }
+
+  export type TokenUsageCreateNestedManyWithoutUserInput = {
+    create?: XOR<TokenUsageCreateWithoutUserInput, TokenUsageUncheckedCreateWithoutUserInput> | TokenUsageCreateWithoutUserInput[] | TokenUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TokenUsageCreateOrConnectWithoutUserInput | TokenUsageCreateOrConnectWithoutUserInput[]
+    createMany?: TokenUsageCreateManyUserInputEnvelope
+    connect?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
   }
 
   export type DivinationRecordUncheckedCreateNestedManyWithoutUserInput = {
@@ -7338,10 +8713,17 @@ export namespace Prisma {
     connect?: DivinationRecordWhereUniqueInput | DivinationRecordWhereUniqueInput[]
   }
 
-  export type SubscriptionUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
-    connect?: SubscriptionWhereUniqueInput
+  export type TokenBalanceUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<TokenBalanceCreateWithoutUserInput, TokenBalanceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TokenBalanceCreateOrConnectWithoutUserInput
+    connect?: TokenBalanceWhereUniqueInput
+  }
+
+  export type TokenUsageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TokenUsageCreateWithoutUserInput, TokenUsageUncheckedCreateWithoutUserInput> | TokenUsageCreateWithoutUserInput[] | TokenUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TokenUsageCreateOrConnectWithoutUserInput | TokenUsageCreateOrConnectWithoutUserInput[]
+    createMany?: TokenUsageCreateManyUserInputEnvelope
+    connect?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7370,14 +8752,28 @@ export namespace Prisma {
     deleteMany?: DivinationRecordScalarWhereInput | DivinationRecordScalarWhereInput[]
   }
 
-  export type SubscriptionUpdateOneWithoutUserNestedInput = {
-    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
-    upsert?: SubscriptionUpsertWithoutUserInput
-    disconnect?: SubscriptionWhereInput | boolean
-    delete?: SubscriptionWhereInput | boolean
-    connect?: SubscriptionWhereUniqueInput
-    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
+  export type TokenBalanceUpdateOneWithoutUserNestedInput = {
+    create?: XOR<TokenBalanceCreateWithoutUserInput, TokenBalanceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TokenBalanceCreateOrConnectWithoutUserInput
+    upsert?: TokenBalanceUpsertWithoutUserInput
+    disconnect?: TokenBalanceWhereInput | boolean
+    delete?: TokenBalanceWhereInput | boolean
+    connect?: TokenBalanceWhereUniqueInput
+    update?: XOR<XOR<TokenBalanceUpdateToOneWithWhereWithoutUserInput, TokenBalanceUpdateWithoutUserInput>, TokenBalanceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TokenUsageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TokenUsageCreateWithoutUserInput, TokenUsageUncheckedCreateWithoutUserInput> | TokenUsageCreateWithoutUserInput[] | TokenUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TokenUsageCreateOrConnectWithoutUserInput | TokenUsageCreateOrConnectWithoutUserInput[]
+    upsert?: TokenUsageUpsertWithWhereUniqueWithoutUserInput | TokenUsageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TokenUsageCreateManyUserInputEnvelope
+    set?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    disconnect?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    delete?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    connect?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    update?: TokenUsageUpdateWithWhereUniqueWithoutUserInput | TokenUsageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TokenUsageUpdateManyWithWhereWithoutUserInput | TokenUsageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TokenUsageScalarWhereInput | TokenUsageScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -7402,14 +8798,60 @@ export namespace Prisma {
     deleteMany?: DivinationRecordScalarWhereInput | DivinationRecordScalarWhereInput[]
   }
 
-  export type SubscriptionUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
-    connectOrCreate?: SubscriptionCreateOrConnectWithoutUserInput
-    upsert?: SubscriptionUpsertWithoutUserInput
-    disconnect?: SubscriptionWhereInput | boolean
-    delete?: SubscriptionWhereInput | boolean
-    connect?: SubscriptionWhereUniqueInput
-    update?: XOR<XOR<SubscriptionUpdateToOneWithWhereWithoutUserInput, SubscriptionUpdateWithoutUserInput>, SubscriptionUncheckedUpdateWithoutUserInput>
+  export type TokenBalanceUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<TokenBalanceCreateWithoutUserInput, TokenBalanceUncheckedCreateWithoutUserInput>
+    connectOrCreate?: TokenBalanceCreateOrConnectWithoutUserInput
+    upsert?: TokenBalanceUpsertWithoutUserInput
+    disconnect?: TokenBalanceWhereInput | boolean
+    delete?: TokenBalanceWhereInput | boolean
+    connect?: TokenBalanceWhereUniqueInput
+    update?: XOR<XOR<TokenBalanceUpdateToOneWithWhereWithoutUserInput, TokenBalanceUpdateWithoutUserInput>, TokenBalanceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TokenUsageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TokenUsageCreateWithoutUserInput, TokenUsageUncheckedCreateWithoutUserInput> | TokenUsageCreateWithoutUserInput[] | TokenUsageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TokenUsageCreateOrConnectWithoutUserInput | TokenUsageCreateOrConnectWithoutUserInput[]
+    upsert?: TokenUsageUpsertWithWhereUniqueWithoutUserInput | TokenUsageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TokenUsageCreateManyUserInputEnvelope
+    set?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    disconnect?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    delete?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    connect?: TokenUsageWhereUniqueInput | TokenUsageWhereUniqueInput[]
+    update?: TokenUsageUpdateWithWhereUniqueWithoutUserInput | TokenUsageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TokenUsageUpdateManyWithWhereWithoutUserInput | TokenUsageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TokenUsageScalarWhereInput | TokenUsageScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutTokenBalanceInput = {
+    create?: XOR<UserCreateWithoutTokenBalanceInput, UserUncheckedCreateWithoutTokenBalanceInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTokenBalanceInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutTokenBalanceNestedInput = {
+    create?: XOR<UserCreateWithoutTokenBalanceInput, UserUncheckedCreateWithoutTokenBalanceInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTokenBalanceInput
+    upsert?: UserUpsertWithoutTokenBalanceInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTokenBalanceInput, UserUpdateWithoutTokenBalanceInput>, UserUncheckedUpdateWithoutTokenBalanceInput>
+  }
+
+  export type UserCreateNestedOneWithoutTokenUsageInput = {
+    create?: XOR<UserCreateWithoutTokenUsageInput, UserUncheckedCreateWithoutTokenUsageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTokenUsageInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutTokenUsageNestedInput = {
+    create?: XOR<UserCreateWithoutTokenUsageInput, UserUncheckedCreateWithoutTokenUsageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTokenUsageInput
+    upsert?: UserUpsertWithoutTokenUsageInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTokenUsageInput, UserUpdateWithoutTokenUsageInput>, UserUncheckedUpdateWithoutTokenUsageInput>
   }
 
   export type UserCreateNestedOneWithoutDivinationRecordsInput = {
@@ -7432,24 +8874,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type UserCreateNestedOneWithoutSubscriptionInput = {
-    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
-  export type UserUpdateOneRequiredWithoutSubscriptionNestedInput = {
-    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
-    upsert?: UserUpsertWithoutSubscriptionInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -7588,6 +9012,19 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -7615,35 +9052,13 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type DivinationRecordCreateWithoutUserInput = {
     type: string
     inputData: string
     result: string
+    detailResult?: string | null
+    isPaid?: boolean
+    cost?: number
     createdAt?: Date | string
   }
 
@@ -7652,6 +9067,9 @@ export namespace Prisma {
     type: string
     inputData: string
     result: string
+    detailResult?: string | null
+    isPaid?: boolean
+    cost?: number
     createdAt?: Date | string
   }
 
@@ -7664,26 +9082,48 @@ export namespace Prisma {
     data: DivinationRecordCreateManyUserInput | DivinationRecordCreateManyUserInput[]
   }
 
-  export type SubscriptionCreateWithoutUserInput = {
-    plan: string
-    status: string
-    startAt: Date | string
-    endAt?: Date | string | null
-    createdAt?: Date | string
+  export type TokenBalanceCreateWithoutUserInput = {
+    balance?: number
+    totalPurchased?: number
+    updatedAt?: Date | string
   }
 
-  export type SubscriptionUncheckedCreateWithoutUserInput = {
+  export type TokenBalanceUncheckedCreateWithoutUserInput = {
     id?: number
-    plan: string
-    status: string
-    startAt: Date | string
-    endAt?: Date | string | null
+    balance?: number
+    totalPurchased?: number
+    updatedAt?: Date | string
+  }
+
+  export type TokenBalanceCreateOrConnectWithoutUserInput = {
+    where: TokenBalanceWhereUniqueInput
+    create: XOR<TokenBalanceCreateWithoutUserInput, TokenBalanceUncheckedCreateWithoutUserInput>
+  }
+
+  export type TokenUsageCreateWithoutUserInput = {
+    type: string
+    tokens: number
+    cost: number
+    isPaid?: boolean
     createdAt?: Date | string
   }
 
-  export type SubscriptionCreateOrConnectWithoutUserInput = {
-    where: SubscriptionWhereUniqueInput
-    create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
+  export type TokenUsageUncheckedCreateWithoutUserInput = {
+    id?: number
+    type: string
+    tokens: number
+    cost: number
+    isPaid?: boolean
+    createdAt?: Date | string
+  }
+
+  export type TokenUsageCreateOrConnectWithoutUserInput = {
+    where: TokenUsageWhereUniqueInput
+    create: XOR<TokenUsageCreateWithoutUserInput, TokenUsageUncheckedCreateWithoutUserInput>
+  }
+
+  export type TokenUsageCreateManyUserInputEnvelope = {
+    data: TokenUsageCreateManyUserInput | TokenUsageCreateManyUserInput[]
   }
 
   export type DivinationRecordUpsertWithWhereUniqueWithoutUserInput = {
@@ -7711,35 +9151,203 @@ export namespace Prisma {
     type?: StringFilter<"DivinationRecord"> | string
     inputData?: StringFilter<"DivinationRecord"> | string
     result?: StringFilter<"DivinationRecord"> | string
+    detailResult?: StringNullableFilter<"DivinationRecord"> | string | null
+    isPaid?: BoolFilter<"DivinationRecord"> | boolean
+    cost?: IntFilter<"DivinationRecord"> | number
     createdAt?: DateTimeFilter<"DivinationRecord"> | Date | string
   }
 
-  export type SubscriptionUpsertWithoutUserInput = {
-    update: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
-    create: XOR<SubscriptionCreateWithoutUserInput, SubscriptionUncheckedCreateWithoutUserInput>
-    where?: SubscriptionWhereInput
+  export type TokenBalanceUpsertWithoutUserInput = {
+    update: XOR<TokenBalanceUpdateWithoutUserInput, TokenBalanceUncheckedUpdateWithoutUserInput>
+    create: XOR<TokenBalanceCreateWithoutUserInput, TokenBalanceUncheckedCreateWithoutUserInput>
+    where?: TokenBalanceWhereInput
   }
 
-  export type SubscriptionUpdateToOneWithWhereWithoutUserInput = {
-    where?: SubscriptionWhereInput
-    data: XOR<SubscriptionUpdateWithoutUserInput, SubscriptionUncheckedUpdateWithoutUserInput>
+  export type TokenBalanceUpdateToOneWithWhereWithoutUserInput = {
+    where?: TokenBalanceWhereInput
+    data: XOR<TokenBalanceUpdateWithoutUserInput, TokenBalanceUncheckedUpdateWithoutUserInput>
   }
 
-  export type SubscriptionUpdateWithoutUserInput = {
-    plan?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type TokenBalanceUpdateWithoutUserInput = {
+    balance?: IntFieldUpdateOperationsInput | number
+    totalPurchased?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SubscriptionUncheckedUpdateWithoutUserInput = {
+  export type TokenBalanceUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    plan?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    balance?: IntFieldUpdateOperationsInput | number
+    totalPurchased?: IntFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageUpsertWithWhereUniqueWithoutUserInput = {
+    where: TokenUsageWhereUniqueInput
+    update: XOR<TokenUsageUpdateWithoutUserInput, TokenUsageUncheckedUpdateWithoutUserInput>
+    create: XOR<TokenUsageCreateWithoutUserInput, TokenUsageUncheckedCreateWithoutUserInput>
+  }
+
+  export type TokenUsageUpdateWithWhereUniqueWithoutUserInput = {
+    where: TokenUsageWhereUniqueInput
+    data: XOR<TokenUsageUpdateWithoutUserInput, TokenUsageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TokenUsageUpdateManyWithWhereWithoutUserInput = {
+    where: TokenUsageScalarWhereInput
+    data: XOR<TokenUsageUpdateManyMutationInput, TokenUsageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TokenUsageScalarWhereInput = {
+    AND?: TokenUsageScalarWhereInput | TokenUsageScalarWhereInput[]
+    OR?: TokenUsageScalarWhereInput[]
+    NOT?: TokenUsageScalarWhereInput | TokenUsageScalarWhereInput[]
+    id?: IntFilter<"TokenUsage"> | number
+    userId?: IntFilter<"TokenUsage"> | number
+    type?: StringFilter<"TokenUsage"> | string
+    tokens?: IntFilter<"TokenUsage"> | number
+    cost?: IntFilter<"TokenUsage"> | number
+    isPaid?: BoolFilter<"TokenUsage"> | boolean
+    createdAt?: DateTimeFilter<"TokenUsage"> | Date | string
+  }
+
+  export type UserCreateWithoutTokenBalanceInput = {
+    name: string
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    avatar?: string | null
+    language?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    divinationRecords?: DivinationRecordCreateNestedManyWithoutUserInput
+    tokenUsage?: TokenUsageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTokenBalanceInput = {
+    id?: number
+    name: string
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    avatar?: string | null
+    language?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    divinationRecords?: DivinationRecordUncheckedCreateNestedManyWithoutUserInput
+    tokenUsage?: TokenUsageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTokenBalanceInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTokenBalanceInput, UserUncheckedCreateWithoutTokenBalanceInput>
+  }
+
+  export type UserUpsertWithoutTokenBalanceInput = {
+    update: XOR<UserUpdateWithoutTokenBalanceInput, UserUncheckedUpdateWithoutTokenBalanceInput>
+    create: XOR<UserCreateWithoutTokenBalanceInput, UserUncheckedCreateWithoutTokenBalanceInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTokenBalanceInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTokenBalanceInput, UserUncheckedUpdateWithoutTokenBalanceInput>
+  }
+
+  export type UserUpdateWithoutTokenBalanceInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    divinationRecords?: DivinationRecordUpdateManyWithoutUserNestedInput
+    tokenUsage?: TokenUsageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTokenBalanceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    divinationRecords?: DivinationRecordUncheckedUpdateManyWithoutUserNestedInput
+    tokenUsage?: TokenUsageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutTokenUsageInput = {
+    name: string
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    avatar?: string | null
+    language?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    divinationRecords?: DivinationRecordCreateNestedManyWithoutUserInput
+    tokenBalance?: TokenBalanceCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTokenUsageInput = {
+    id?: number
+    name: string
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    avatar?: string | null
+    language?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    divinationRecords?: DivinationRecordUncheckedCreateNestedManyWithoutUserInput
+    tokenBalance?: TokenBalanceUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTokenUsageInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTokenUsageInput, UserUncheckedCreateWithoutTokenUsageInput>
+  }
+
+  export type UserUpsertWithoutTokenUsageInput = {
+    update: XOR<UserUpdateWithoutTokenUsageInput, UserUncheckedUpdateWithoutTokenUsageInput>
+    create: XOR<UserCreateWithoutTokenUsageInput, UserUncheckedCreateWithoutTokenUsageInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTokenUsageInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTokenUsageInput, UserUncheckedUpdateWithoutTokenUsageInput>
+  }
+
+  export type UserUpdateWithoutTokenUsageInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    divinationRecords?: DivinationRecordUpdateManyWithoutUserNestedInput
+    tokenBalance?: TokenBalanceUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTokenUsageInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    language?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    divinationRecords?: DivinationRecordUncheckedUpdateManyWithoutUserNestedInput
+    tokenBalance?: TokenBalanceUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDivinationRecordsInput = {
@@ -7751,7 +9359,8 @@ export namespace Prisma {
     language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    tokenBalance?: TokenBalanceCreateNestedOneWithoutUserInput
+    tokenUsage?: TokenUsageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDivinationRecordsInput = {
@@ -7764,7 +9373,8 @@ export namespace Prisma {
     language?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    tokenBalance?: TokenBalanceUncheckedCreateNestedOneWithoutUserInput
+    tokenUsage?: TokenUsageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDivinationRecordsInput = {
@@ -7792,7 +9402,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    tokenBalance?: TokenBalanceUpdateOneWithoutUserNestedInput
+    tokenUsage?: TokenUsageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDivinationRecordsInput = {
@@ -7805,73 +9416,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutSubscriptionInput = {
-    name: string
-    email?: string | null
-    phone?: string | null
-    password?: string | null
-    avatar?: string | null
-    language?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    divinationRecords?: DivinationRecordCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutSubscriptionInput = {
-    id?: number
-    name: string
-    email?: string | null
-    phone?: string | null
-    password?: string | null
-    avatar?: string | null
-    language?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    divinationRecords?: DivinationRecordUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutSubscriptionInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-  }
-
-  export type UserUpsertWithoutSubscriptionInput = {
-    update: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
-    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
-  }
-
-  export type UserUpdateWithoutSubscriptionInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    language?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    divinationRecords?: DivinationRecordUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSubscriptionInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    language?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    divinationRecords?: DivinationRecordUncheckedUpdateManyWithoutUserNestedInput
+    tokenBalance?: TokenBalanceUncheckedUpdateOneWithoutUserNestedInput
+    tokenUsage?: TokenUsageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DivinationRecordCreateManyUserInput = {
@@ -7879,6 +9425,18 @@ export namespace Prisma {
     type: string
     inputData: string
     result: string
+    detailResult?: string | null
+    isPaid?: boolean
+    cost?: number
+    createdAt?: Date | string
+  }
+
+  export type TokenUsageCreateManyUserInput = {
+    id?: number
+    type: string
+    tokens: number
+    cost: number
+    isPaid?: boolean
     createdAt?: Date | string
   }
 
@@ -7886,6 +9444,9 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7894,6 +9455,9 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7902,6 +9466,35 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     inputData?: StringFieldUpdateOperationsInput | string
     result?: StringFieldUpdateOperationsInput | string
+    detailResult?: NullableStringFieldUpdateOperationsInput | string | null
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    cost?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageUpdateWithoutUserInput = {
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TokenUsageUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    tokens?: IntFieldUpdateOperationsInput | number
+    cost?: IntFieldUpdateOperationsInput | number
+    isPaid?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -7919,6 +9512,14 @@ export namespace Prisma {
      */
     export type UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use TokenBalanceDefaultArgs instead
+     */
+    export type TokenBalanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TokenBalanceDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TokenUsageDefaultArgs instead
+     */
+    export type TokenUsageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TokenUsageDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use DivinationRecordDefaultArgs instead
      */
     export type DivinationRecordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DivinationRecordDefaultArgs<ExtArgs>
@@ -7930,10 +9531,6 @@ export namespace Prisma {
      * @deprecated Use CharacterDataDefaultArgs instead
      */
     export type CharacterDataArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CharacterDataDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use SubscriptionDefaultArgs instead
-     */
-    export type SubscriptionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SubscriptionDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

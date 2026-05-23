@@ -1,16 +1,17 @@
-import { NextResponse } from 'next/server';
-import { getYiJingInterpretation } from '../../../../lib/ai';
+import { NextRequest, NextResponse } from 'next/server';
+import { getYiJingBasicInterpretation } from '../../../../lib/ai';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { guaName, question } = body;
-    
-    const interpretation = await getYiJingInterpretation(guaName, question);
-    
+
+    const result = await getYiJingBasicInterpretation(guaName, question);
+
     return NextResponse.json({
       success: true,
-      interpretation
+      interpretation: result.content,
+      tokens: result.tokens
     });
   } catch (error) {
     return NextResponse.json({
