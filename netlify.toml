@@ -1,8 +1,6 @@
 [build]
-  command = "npm install && npm run build"
+  command = "npm ci --prefer-offline --no-audit --progress=false && npm run build"
   publish = ".next"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
