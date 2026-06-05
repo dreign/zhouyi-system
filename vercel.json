@@ -2,8 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "npx prisma generate && next build",
   "installCommand": "npm install",
-  "regions": ["iad1"],
-  "env": {
-    "DATABASE_URL": "@database_postgres_url"
-  }
+  "regions": ["iad1"]
 }
