@@ -147,19 +147,7 @@ export default function BookPage() {
         </div>
       </main>
 
-      <footer className="bg-[#1a140a] text-[#d4c8a0] py-8 mt-12">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-[#c9a962]">☯</span>
-            <span className="tracking-widest">{t('common.appName')}</span>
-            <span className="text-[#c9a962]">☯</span>
-          </div>
-          <p className="text-sm text-[#8b7355]">
-            {t('common.footer.tagline')}
-          </p>
-          <p className="text-sm text-[#8b7355] mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
-        </div>
-      </footer>
+
     </div>
   );
 }

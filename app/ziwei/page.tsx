@@ -236,13 +236,7 @@ export default function ZiweiPage() {
         )}
       </main>
 
-      <footer className="bg-ancient-dark py-8 mt-16 border-t-4 border-[#c9a962]">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-[#d4c8a0]/70">{t('common.footer.copyright')} · {t('common.footer.tagline')}</p>
-          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.disclaimer')}</p>
-          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
-        </div>
-      </footer>
+
     </div>
   );
 }

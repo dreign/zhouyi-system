@@ -1,6 +1,7 @@
 'use client';
 
 import { TranslationProvider } from '@/lib/i18n';
+import Footer from '@/components/Footer';
 import './globals.css';
 
 export default function RootLayout({
@@ -13,6 +14,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-paper font-serif">
         <TranslationProvider>
           {children}
+          <Footer />
         </TranslationProvider>
         <script
           dangerouslySetInnerHTML={{

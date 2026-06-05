@@ -324,19 +324,7 @@ function HomeContent() {
               <TaiChiIcon />
             </div>
           </div>
-          <p className="text-[#d4c8a0]/70 mb-2">{t('common.footer.tagline')}</p>
-          <p className="text-[#5a4520] text-sm">{t('common.footer.copyright')} | 易经智慧 · 启迪人生</p>
-          <p className="text-[#5a4520] text-sm mt-2">{t('common.footer.contact')}<a href="mailto:fengbuxiu@foxmail.com" className="text-[#c9a962] hover:text-[#d4c8a0] transition-colors">fengbuxiu@foxmail.com</a></p>
-          <div className="flex items-center justify-center gap-6 mt-4 text-xs text-[#5a4520]">
-            <span>☰ 乾</span>
-            <span>☷ 坤</span>
-            <span>☲ 离</span>
-            <span>☵ 坎</span>
-            <span>☳ 震</span>
-            <span>☴ 巽</span>
-            <span>☶ 艮</span>
-            <span>☱ 兑</span>
-          </div>
+
         </div>
       </footer>
     </div>
