@@ -89,8 +89,8 @@ function parseHtmlFile(filePath: string, guaInfo: typeof guaNames[0]): GuaInfo {
   const content = $('.lacontent').text();
   
   const guaciMatch = content.match(/卦辞[：:]\s*([^《]+)/);
-  const yaociMatch = content.match(/爻辞[：:]\s*(.+?)(?=象曰|$)/s);
-  const interpretationMatch = content.match(/解释翻译[：:]\s*(.+?)(?=注释出处|$)/s);
+  const yaociMatch = content.match(/爻辞[：:]\s*([\s\S]+?)(?=象曰|$)/);
+  const interpretationMatch = content.match(/解释翻译[：:]\s*([\s\S]+?)(?=注释出处|$)/);
 
   return {
     code: guaInfo.code,

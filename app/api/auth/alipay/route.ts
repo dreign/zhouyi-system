@@ -4,7 +4,6 @@ import qs from 'querystring';
 
 const ALIPAY_APP_ID = process.env.ALIPAY_APP_ID || '';
 const ALIPAY_APP_PRIVATE_KEY = process.env.ALIPAY_APP_PRIVATE_KEY || '';
-const ALIPAY_ALIPAY_PUBLIC_KEY = process.env.ALIPAY_ALIPAY_PUBLIC_KEY || '';
 const ALIPAY_REDIRECT_URI = process.env.ALIPAY_REDIRECT_URI || '';
 
 function generateSignature(params: Record<string, string>): string {
@@ -25,7 +24,7 @@ export async function GET(request: NextRequest) {
       const timestamp = new Date().toISOString();
       const state = crypto.randomBytes(16).toString('hex');
       
-      const params = {
+      const params: Record<string, string> = {
         app_id: ALIPAY_APP_ID,
         method: 'alipay.system.oauth.token',
         format: 'JSON',
@@ -34,7 +33,7 @@ export async function GET(request: NextRequest) {
         timestamp,
         version: '1.0',
         grant_type: 'authorization_code',
-        code,
+        code: code || '',
         redirect_uri: ALIPAY_REDIRECT_URI,
         state
       };
@@ -51,7 +50,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ authUrl });
     }
 
-    const tokenParams = {
+    const tokenParams: Record<string, string> = {
       app_id: ALIPAY_APP_ID,
       method: 'alipay.system.oauth.token',
       format: 'JSON',
@@ -60,7 +59,7 @@ export async function GET(request: NextRequest) {
       timestamp: new Date().toISOString(),
       version: '1.0',
       grant_type: 'authorization_code',
-      code
+      code: code
     };
     tokenParams.sign = generateSignature(tokenParams);
 
@@ -76,7 +75,7 @@ export async function GET(request: NextRequest) {
     }
 
     const tokenResult = tokenData.alipay_system_oauth_token_response;
-    const userParams = {
+    const userParams: Record<string, string> = {
       app_id: ALIPAY_APP_ID,
       method: 'alipay.user.info.share',
       format: 'JSON',
