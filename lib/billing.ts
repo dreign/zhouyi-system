@@ -1,6 +1,4 @@
-import prisma from './prisma';
-import { getTokenBalance, recordTokenUsage, checkDailyFreeUsage } from './auth';
-
+// 下线支付模块 - 所有功能免费使用
 export interface BillingResult {
   success: boolean;
   error?: string;
@@ -24,7 +22,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 500,
     basicCost: 0,
     deepTokens: 2500,
-    deepCost: 30
+    deepCost: 0
   },
   yi_deep: {
     type: 'yi_deep',
@@ -32,7 +30,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 500,
     basicCost: 0,
     deepTokens: 2500,
-    deepCost: 30
+    deepCost: 0
   },
   bazi_basic: {
     type: 'bazi_basic',
@@ -40,7 +38,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 500,
     basicCost: 0,
     deepTokens: 3000,
-    deepCost: 25
+    deepCost: 0
   },
   bazi_deep: {
     type: 'bazi_deep',
@@ -48,7 +46,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 500,
     basicCost: 0,
     deepTokens: 3000,
-    deepCost: 25
+    deepCost: 0
   },
   name_analyze: {
     type: 'name_analyze',
@@ -56,7 +54,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 400,
     basicCost: 0,
     deepTokens: 2000,
-    deepCost: 15
+    deepCost: 0
   },
   name_generate: {
     type: 'name_generate',
@@ -64,7 +62,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 400,
     basicCost: 0,
     deepTokens: 2000,
-    deepCost: 20
+    deepCost: 0
   },
   ziwei_basic: {
     type: 'ziwei_basic',
@@ -72,7 +70,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 500,
     basicCost: 0,
     deepTokens: 3000,
-    deepCost: 30
+    deepCost: 0
   },
   ziwei_deep: {
     type: 'ziwei_deep',
@@ -80,7 +78,7 @@ export const SERVICE_PRICING: Record<string, ServicePricing> = {
     basicTokens: 500,
     basicCost: 0,
     deepTokens: 3000,
-    deepCost: 30
+    deepCost: 0
   }
 };
 
@@ -89,34 +87,7 @@ export async function checkBilling(
   serviceType: string,
   isDeep: boolean
 ): Promise<BillingResult> {
-  const pricing = SERVICE_PRICING[serviceType];
-  if (!pricing) {
-    return { success: false, error: '未知的服务类型' };
-  }
-
-  const cost = isDeep ? pricing.deepCost : pricing.basicCost;
-
-  if (cost === 0) {
-    const canUseFree = await checkDailyFreeUsage(userId, serviceType);
-    if (!canUseFree) {
-      return {
-        success: false,
-        error: `今日免费额度已用完，请明天再来或购买积分解锁深度解读`
-      };
-    }
-
-    return { success: true, isFree: true };
-  }
-
-  const balance = await getTokenBalance(userId);
-  if (balance < cost) {
-    return {
-      success: false,
-      error: `积分不足，需要${cost}积分，当前剩余${balance}积分，请先充值`
-    };
-  }
-
-  return { success: true, remainingBalance: balance - cost };
+  return { success: true, isFree: true };
 }
 
 export async function processBilling(
@@ -125,37 +96,6 @@ export async function processBilling(
   isDeep: boolean,
   tokensUsed: number
 ): Promise<boolean> {
-  const pricing = SERVICE_PRICING[serviceType];
-  if (!pricing) return false;
-
-  const cost = isDeep ? pricing.deepCost : pricing.basicCost;
-
-  if (cost === 0) {
-    await recordTokenUsage(userId, serviceType, tokensUsed, 0, false);
-    return true;
-  }
-
-  const balance = await getTokenBalance(userId);
-  if (balance < cost) {
-    return false;
-  }
-
-  await prisma.$transaction([
-    prisma.tokenBalance.update({
-      where: { userId },
-      data: { balance: { decrement: cost } }
-    }),
-    prisma.tokenUsage.create({
-      data: {
-        userId,
-        type: serviceType,
-        tokens: tokensUsed,
-        cost,
-        isPaid: true
-      }
-    })
-  ]);
-
   return true;
 }
 

@@ -1,6 +1,7 @@
 // 紫微斗数算法引擎
 
 import { TIANGAN, DIZHI } from './bazi';
+export { TIANGAN, DIZHI };
 
 // 地支宫位名称
 export const PALACE_NAMES = [
@@ -59,7 +60,7 @@ export const SIHUA_DESCRIPTION: Record<SiHuaType, { name: string; meaning: strin
 };
 
 // 天干四化表
-const TIANGAN_SIHUA: Record<string, { lu: string; quan: string; ke: string; ji: string }> = {
+export const TIANGAN_SIHUA: Record<string, { lu: string; quan: string; ke: string; ji: string }> = {
   '甲': { lu: '廉贞', quan: '破军', ke: '武曲', ji: '太阳' },
   '乙': { lu: '天机', quan: '天梁', ke: '紫微', ji: '太阴' },
   '丙': { lu: '天同', quan: '天机', ke: '文昌', ji: '廉贞' },
@@ -382,6 +383,36 @@ export function generateZiweiPlate(
   };
 }
 
+// 获取宫位的三方四正
+export function getSanFangSiZheng(palaceIndex: number): { sanfang: number[]; sizheng: number } {
+  return {
+    sanfang: [palaceIndex, (palaceIndex + 4) % 12, (palaceIndex + 8) % 12],
+    sizheng: (palaceIndex + 6) % 12,
+  };
+}
+
+// 立太极：重新以指定宫位为命宫来排盘
+export function reCenterPlate(plate: ZiweiPlate, newMingGongBranch: string): ZiweiPlate {
+  const newMingIndex = DIZHI.indexOf(newMingGongBranch);
+  const oldMingIndex = DIZHI.indexOf(plate.mingGongBranch);
+  const offset = (newMingIndex - oldMingIndex + 12) % 12;
+
+  const reorderedPalaces = plate.palaces.map((_, i) => {
+    const originalIndex = (i + offset) % 12;
+    return {
+      ...plate.palaces[originalIndex],
+      index: i,
+      name: PALACE_NAMES[i],
+    };
+  });
+
+  return {
+    ...plate,
+    mingGongBranch: newMingGongBranch,
+    palaces: reorderedPalaces,
+  };
+}
+
 // 获取宫位详细分析
 export function analyzePalace(plate: ZiweiPlate, palaceIndex: number): {
   palace: Palace;
@@ -578,3 +609,313 @@ export function getComprehensiveAnalysis(plate: ZiweiPlate): {
     suggestions
   };
 }
+
+// ======================================
+// V2 新增函数
+// ======================================
+
+// 1. 地支六合计算
+export function getLiuHe(branch: string): string {
+  const map: Record<string, string> = {
+    '子': '丑', '丑': '子',
+    '寅': '亥', '亥': '寅',
+    '卯': '戌', '戌': '卯',
+    '辰': '酉', '酉': '辰',
+    '巳': '申', '申': '巳',
+    '午': '未', '未': '午',
+  };
+  return map[branch] || '';
+}
+
+// 2. 地支六冲计算
+export function getLiuChong(branch: string): string {
+  const map: Record<string, string> = {
+    '子': '午', '午': '子',
+    '丑': '未', '未': '丑',
+    '寅': '申', '申': '寅',
+    '卯': '酉', '酉': '卯',
+    '辰': '戌', '戌': '辰',
+    '巳': '亥', '亥': '巳',
+  };
+  return map[branch] || '';
+}
+
+// 3. 地支六害计算
+export function getLiuHai(branch: string): string {
+  const map: Record<string, string> = {
+    '子': '未', '未': '子',
+    '丑': '午', '午': '丑',
+    '寅': '巳', '巳': '寅',
+    '卯': '辰', '辰': '卯',
+    '申': '亥', '亥': '申',
+    '酉': '戌', '戌': '酉',
+  };
+  return map[branch] || '';
+}
+
+// 4. 三方四正计算
+export function getSanFang(palaceIndex: number): number[] {
+  return [(palaceIndex + 4) % 12, (palaceIndex + 8) % 12];
+}
+
+export function getSiZheng(palaceIndex: number): number {
+  return (palaceIndex + 6) % 12;
+}
+
+// 大限时间轴类型
+export interface DaXianPeriod {
+  index: number;
+  startAge: number;
+  endAge: number;
+  palaceIndex: number;
+  palaceName: string;
+  branch: string;
+  mainStars: string[];
+  isCurrent: boolean;
+  analysis: string;
+}
+
+// 六亲关系类型
+export interface LiuQinRelation {
+  relation: string;
+  palaceIndex: number;
+  palaceName: string;
+  branch: string;
+  mainStars: string[];
+}
+
+// 5. 大限时间轴
+export function getDaXianTimeline(plate: ZiweiPlate, currentAge: number): DaXianPeriod[] {
+  const startAge = getDaXianStartAge(plate.dayGan);
+  const periods: DaXianPeriod[] = [];
+  
+  for (let i = 0; i < 5; i++) {
+    const sa = startAge + i * 10;
+    const ea = sa + 9;
+    const palaceIndex = (DIZHI.indexOf(plate.mingGongBranch) + i) % 12;
+    const palace = plate.palaces[palaceIndex];
+    
+    let analysis = `${sa}-${ea}岁行${palace.name}大限。`;
+    if (palace.stars.length > 0) {
+      analysis += `主星：${palace.stars.map(s => s.name).join('、')}。`;
+    }
+    
+    periods.push({
+      index: i,
+      startAge: sa,
+      endAge: ea,
+      palaceIndex,
+      palaceName: palace.name,
+      branch: palace.branch,
+      mainStars: palace.stars.filter(s => s.type === 'major').map(s => s.name),
+      isCurrent: currentAge >= sa && currentAge <= ea,
+      analysis,
+    });
+  }
+  
+  return periods;
+}
+
+// 6. 六亲关系映射
+export function getLiuQinMap(plate: ZiweiPlate): LiuQinRelation[] {
+  const relations: LiuQinRelation[] = [];
+  
+  // 1. 自己 - 命宫
+  relations.push({
+    relation: '自己',
+    palaceIndex: 0,
+    palaceName: plate.palaces[0].name,
+    branch: plate.palaces[0].branch,
+    mainStars: plate.palaces[0].stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 2. 父亲 - 父母宫 (索引11)
+  const fatherPalace = plate.palaces[11];
+  relations.push({
+    relation: '父亲',
+    palaceIndex: 11,
+    palaceName: fatherPalace.name,
+    branch: fatherPalace.branch,
+    mainStars: fatherPalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 3. 母亲 - 以父亲(父母宫)立太极，其夫妻宫(逆时针2)
+  const motherIndex = (DIZHI.indexOf(fatherPalace.branch) + 10) % 12;
+  const motherPalace = plate.palaces[motherIndex];
+  relations.push({
+    relation: '母亲',
+    palaceIndex: motherIndex,
+    palaceName: motherPalace.name,
+    branch: motherPalace.branch,
+    mainStars: motherPalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 4. 配偶 - 夫妻宫 (索引2)
+  const spousePalace = plate.palaces[2];
+  relations.push({
+    relation: '配偶',
+    palaceIndex: 2,
+    palaceName: spousePalace.name,
+    branch: spousePalace.branch,
+    mainStars: spousePalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 5. 子女 - 子女宫 (索引3)
+  const childPalace = plate.palaces[3];
+  relations.push({
+    relation: '子女',
+    palaceIndex: 3,
+    palaceName: childPalace.name,
+    branch: childPalace.branch,
+    mainStars: childPalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 6. 兄弟姐妹 - 兄弟宫 (索引1)
+  const siblingPalace = plate.palaces[1];
+  relations.push({
+    relation: '兄弟姐妹',
+    palaceIndex: 1,
+    palaceName: siblingPalace.name,
+    branch: siblingPalace.branch,
+    mainStars: siblingPalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 7. 祖父 - 父母宫的父母宫(以父母宫立太极，其父母宫)
+  const grandfatherIndex = (DIZHI.indexOf(fatherPalace.branch) + 11) % 12;
+  const grandfatherPalace = plate.palaces[grandfatherIndex];
+  relations.push({
+    relation: '祖父',
+    palaceIndex: grandfatherIndex,
+    palaceName: grandfatherPalace.name,
+    branch: grandfatherPalace.branch,
+    mainStars: grandfatherPalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  // 8. 祖母 - 祖父的夫妻宫
+  const grandmotherIndex = (grandfatherIndex + 10) % 12;
+  const grandmotherPalace = plate.palaces[grandmotherIndex];
+  relations.push({
+    relation: '祖母',
+    palaceIndex: grandmotherIndex,
+    palaceName: grandmotherPalace.name,
+    branch: grandmotherPalace.branch,
+    mainStars: grandmotherPalace.stars.filter(s => s.type === 'major').map(s => s.name),
+  });
+  
+  return relations;
+}
+
+// 7. 流年命宫计算
+export function getLiuNianMingGong(year: number): { branch: string; palaceIndex: number } {
+  const branchIndex = (year - 4) % 12;
+  const branch = DIZHI[branchIndex >= 0 ? branchIndex : branchIndex + 12];
+  return { branch, palaceIndex: branchIndex >= 0 ? branchIndex : branchIndex + 12 };
+}
+
+// 8. 流年干支
+export function getLiuNianGanZhi(year: number): { stem: string; branch: string } {
+  const stemIndex = (year - 4) % 10;
+  const branchIndex = (year - 4) % 12;
+  return { 
+    stem: TIANGAN[stemIndex >= 0 ? stemIndex : stemIndex + 10], 
+    branch: DIZHI[branchIndex >= 0 ? branchIndex : branchIndex + 12] 
+  };
+}
+
+// 9. 星曜故事化数据
+export interface StarStoryData {
+  name: string;
+  code: string;
+  role: string;
+  wuxing: string;
+  personality: string[];
+  story: string;
+  description: string;
+}
+
+export const STAR_STORIES: Record<string, StarStoryData> = {
+  '紫微': {
+    name: '紫微', code: 'ziwei', role: '皇帝/董事长', wuxing: '土',
+    personality: ['尊贵', '领导力', '好面子', '威严'],
+    story: '紫微是皇帝，是命盘中的老大。他走到哪里，哪里的气场就不一样。就像董事长一样，他不需要事事亲为，但决策权永远在他手里。紫微坐镇的宫位，就像皇帝亲临，气势非凡。',
+    description: '帝王之星，尊贵威严，有领导才能但也好面子固执。',
+  },
+  '天机': {
+    name: '天机', code: 'tianji', role: '军师/秘书', wuxing: '木',
+    personality: ['聪明', '善变', '机敏', '思虑'],
+    story: '天机是皇帝身边的军师兼秘书，脑子转得最快。他是唯一能随时见到皇帝的人，也是出谋划策的角色。但正因为他太聪明了，心思也最多，容易想太多。',
+    description: '智慧之星，善变机敏，思维活跃但容易多虑。',
+  },
+  '太阳': {
+    name: '太阳', code: 'taiyang', role: '外交官/宣传部长', wuxing: '火',
+    personality: ['热情', '正直', '光明', '博爱'],
+    story: '太阳就像朝廷里的外交官，光明磊落、热情正直。他负责对外联络和传播正能量。太阳所到之处，黑暗消散，温暖人心。但他过于直率，有时会得罪人而不自知。',
+    description: '光明之星，热情正直，博爱无私但易得罪人。',
+  },
+  '武曲': {
+    name: '武曲', code: 'wuqu', role: '财政部长', wuxing: '金',
+    personality: ['果断', '刚毅', '理财', '固执'],
+    story: '武曲是掌管财政大权的人，他讲规矩、有原则。公司每笔款项都要经过他严格的审批，流程繁琐但必须要走。谈钱的事，他从来不含糊，因为规矩一旦乱了，世界就乱套了。',
+    description: '财星，刚毅果断，善于理财但过于固执。',
+  },
+  '天同': {
+    name: '天同', code: 'tiantong', role: '新人/实习生', wuxing: '水',
+    personality: ['温和', '乐观', '享受', '懒散'],
+    story: '天同是公司里的新人，也是未来的希望。他性格温和乐观，就像刚入职场的小朋友，对一切都充满好奇。但他也容易懒散，需要有人推他一把才能发挥潜力。',
+    description: '福星，温和安逸，性格乐观但容易懒散。',
+  },
+  '廉贞': {
+    name: '廉贞', code: 'lianzhen', role: '创意总监', wuxing: '火',
+    personality: ['热情', '感情', '艺术', '倔强'],
+    story: '廉贞是公司的创意总监，负责所有创新项目。他是阴火，就像小火苗，需要合适的环境才能发光发热。如果把他放在一堆大火旁边（比如太阳），他的才华反而被掩盖了。',
+    description: '次桃花星，感情丰富，有艺术才华但性格倔强。',
+  },
+  '天府': {
+    name: '天府', code: 'tianfu', role: '府库/档案室', wuxing: '土',
+    personality: ['稳重', '宽厚', '财富', '保守'],
+    story: '天府是皇帝的府库，包容万象。他代表着极高的知识储备和包容性。天府管理着所有的档案和资源，性格稳重宽厚，但也偏向保守，不喜欢冒险。紫微和天府在一起，就是"紫府同宫"，根基最稳。',
+    description: '财库之星，稳重宽厚，有财富但偏向保守。',
+  },
+  '太阴': {
+    name: '太阴', code: 'taiyin', role: '人事主管/内务管家', wuxing: '水',
+    personality: ['温柔', '细腻', '艺术', '敏感'],
+    story: '太阴是负责内部事务的管家，主管人事和教育。她温柔细腻，负责培养新人、照顾员工福祉。就像月亮一样，她不算耀眼但不可或缺。她也是女性、家庭的代表。',
+    description: '月亮之星，阴柔细腻，有艺术天赋但敏感。',
+  },
+  '贪狼': {
+    name: '贪狼', code: 'tanlang', role: '娱乐总监/销售总监', wuxing: '木',
+    personality: ['多才', '风流', '交际', '欲望'],
+    story: '贪狼是皇帝的娱乐总监，负责所有吃喝玩乐的事情。他多才多艺，交际广泛，是公司里的社交达人。但贪狼也代表欲望，如果皇帝沉迷于爱好不理朝政，那问题就大了。',
+    description: '桃花之星，多才多艺，擅长交际但欲望较强。',
+  },
+  '巨门': {
+    name: '巨门', code: 'jumen', role: '后勤/消息通', wuxing: '土',
+    personality: ['善辩', '多疑', '口才', '是非'],
+    story: '巨门是管理皇帝饮食起居的后勤人员，也是消息最灵通的人。公司里的小道消息往往从他这里传出去。他能拿到第一手资料，但也因此容易惹是非，心里比较阴暗面。',
+    description: '口舌之星，善辩多疑，消息灵通但易惹是非。',
+  },
+  '天相': {
+    name: '天相', code: 'tianxiang', role: '人事/新人培训', wuxing: '水',
+    personality: ['稳重', '踏实', '辅佐', '谨慎'],
+    story: '天相负责新人的培训和招聘，是维持公司长期发展的命脉。他稳重踏实，做事谨慎。天相在的地方，组织更有福气，新人培养得好，公司才能长治久安。',
+    description: '印星，稳重踏实，善于辅佐但过于谨慎。',
+  },
+  '天梁': {
+    name: '天梁', code: 'tianliang', role: '投资人/退休元老', wuxing: '土',
+    personality: ['慈悲', '清高', '智慧', '挑剔'],
+    story: '天梁是已经退休的老前辈/投资人。虽然在家养老，但内心还是放不下朝政。他是唯一能让紫微给面子的人——毕竟是长辈加投资人，谁都得尊重。天梁慈悲清高，但眼光也挑剔。',
+    description: '荫星，慈悲清高，有智慧但比较挑剔。',
+  },
+  '七杀': {
+    name: '七杀', code: 'isha', role: '将军/区域代理', wuxing: '金',
+    personality: ['勇猛', '果断', '刚强', '暴躁'],
+    story: '七杀是将军，负责镇守一方。朝廷架构完善后，将军就得去边疆。他是区域代理一样的存在，在某片区域自由度很高，但责任也重大。七杀的性格刚强勇猛，但也容易暴躁。',
+    description: '将星，刚强勇猛，执行力强但性格暴躁。',
+  },
+  '破军': {
+    name: '破军', code: 'pojun', role: '皇帝的爱妃/变革者', wuxing: '水',
+    personality: ['革新', '变动', '果断', '偏激'],
+    story: '破军是皇帝最宠爱的妃子（在紫府盘格局中），任性霸道。她想怎么折腾都行，因为皇帝宠着她。破军走到哪里，哪里就有大变动。她是破坏旧秩序、建立新秩序的力量，变革的同时也伴随着代价。',
+    description: '破耗之星，革新变动，果断有力但偏激耗损。',
+  },
+};

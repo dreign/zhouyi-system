@@ -17,6 +17,7 @@ export default function Navigation({ activePath }: NavigationProps) {
     { href: '/', label: t('nav.home') },
     { href: '/yi', label: t('nav.yi') },
     { href: '/bazi', label: t('nav.bazi') },
+    { href: '/bazi/marriage', label: t('nav.marriage') },
     { href: '/ziwei', label: t('nav.ziwei') },
     { href: '/name', label: t('nav.name') },
     { href: '/book', label: t('nav.book') },

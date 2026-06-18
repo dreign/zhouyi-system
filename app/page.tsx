@@ -185,6 +185,20 @@ function HomeContent() {
                 </div>
               </div>
             </Link>
+
+            <Link href="/bazi/marriage" className="ancient-card rounded-xl p-8 hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group">
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-[#8b2500] to-[#d44a4a] rounded-full flex items-center justify-center border-2 border-[#c9a962]">
+                  <span className="text-3xl text-[#faf5e8] font-bold">囍</span>
+                </div>
+                <h3 className="text-2xl font-bold text-[#3d2914] mb-3 tracking-wider">{t('home.marriage.title')}</h3>
+                <p className="text-[#5a4520] leading-relaxed">{t('home.marriage.description')}</p>
+                <div className="mt-4 flex justify-center gap-2">
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☲" /></div>
+                  <div className="w-8 h-8"><BaguaSymbol trigram="☱" /></div>
+                </div>
+              </div>
+            </Link>
           </div>
         </section>
 
