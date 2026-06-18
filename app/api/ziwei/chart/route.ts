@@ -28,8 +28,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { year, month, day, hour, gender = 'male' } = body;
     
-    if (!year || !month || !day || !hour) {
-      return NextResponse.json({ error: 'Missing parameters' }, { status: 400 });
+    if (year == null || month == null || day == null || hour == null ||
+        typeof year !== 'number' || typeof month !== 'number' ||
+        typeof day !== 'number' || typeof hour !== 'number') {
+      return NextResponse.json({ error: 'Missing or invalid parameters' }, { status: 400 });
     }
     
     const plate = generateZiweiPlate(year, month, day, hour, gender);

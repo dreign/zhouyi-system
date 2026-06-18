@@ -318,5 +318,135 @@
     "noMatch": "No matching hexagrams found",
     "aboutZhouyi": "About I Ching",
     "aboutZhouyiContent": "The I Ching, also known as Zhouyi, is one of the classic Chinese traditional texts. It is traditionally attributed to King Wen of Zhou. It consists of two parts: the Classic and the Commentaries. The Classic mainly contains 64 hexagrams and 384 lines, each with their explanations (hexagram texts and line texts) used for divination. Known as the \"leader of all classics,\" the I Ching contains profound philosophical thoughts and cosmology, and has had a profound influence on Chinese culture."
+  },
+  "knowledge": {
+    "home": {
+      "title": "I Ching Basic Philosophy",
+      "sections": [
+        {
+          "title": "Taiji Gives Birth to Yin-Yang",
+          "content": "Taiji is the primordial state of the universe, divided into Yin and Yang. Yin (--) represents stillness, darkness, softness; Yang (—) represents movement, light, firmness. Yin and Yang are opposite yet unified."
+        },
+        {
+          "title": "Yin-Yang Gives Birth to Four Symbols",
+          "content": "Yin and Yang combine to form four symbols: Greater Yang, Lesser Yin, Lesser Yang, Greater Yin. These represent the four seasons and four directions."
+        },
+        {
+          "title": "Four Symbols Gives Birth to Eight Trigrams",
+          "content": "Each of the four symbols receives one more line to form eight trigrams: Qian (Heaven), Dui (Lake), Li (Fire), Zhen (Thunder), Xun (Wind), Kan (Water), Gen (Mountain), Kun (Earth)."
+        }
+      ]
+    },
+    "yi": {
+      "title": "I Ching Divination Guide",
+      "sections": [
+        {
+          "title": "Formation of Trigrams",
+          "content": "Each trigram consists of three stacked lines (solid Yang or broken Yin). Each trigram represents a natural phenomenon and human situation. Two trigrams stacked form a hexagram."
+        },
+        {
+          "title": "Structure of 64 Hexagrams",
+          "content": "Each hexagram has an upper and lower trigram (six lines total). The lower trigram represents internal cause, the upper trigram represents external development. Each hexagram has a name, judgment, and line texts."
+        },
+        {
+          "title": "Divination Methods",
+          "content": "Three methods: (1) Random - system generates automatically; (2) Coin Method - enter 6 numbers simulating 6 coin tosses; (3) Number Method - enter any three numbers to generate a hexagram."
+        }
+      ]
+    },
+    "bazi": {
+      "title": "BaZi Fortune Guide",
+      "sections": [
+        {
+          "title": "Heavenly Stems and Earthly Branches",
+          "content": "Ten Heavenly Stems (Jia, Yi, Bing, Ding, Wu, Ji, Geng, Xin, Ren, Gui) and Twelve Earthly Branches (Zi, Chou, Yin, Mao, Chen, Si, Wu, Wei, Shen, You, Xu, Hai) form the foundation of BaZi."
+        },
+        {
+          "title": "Five Elements Cycle",
+          "content": "The Five Elements (Metal, Wood, Water, Fire, Earth) are the five fundamental properties. Generating cycle: Wood→Fire→Earth→Metal→Water→Wood. Overcoming cycle: Wood→Earth→Water→Fire→Metal→Wood."
+        }
+      ]
+    },
+    "marriage": {
+      "title": "Zodiac Marriage Knowledge",
+      "sections": [
+        {
+          "title": "Six Harmony (Best Match)",
+          "content": "Rat+Ox, Tiger+Pig, Rabbit+Dog, Dragon+Rooster, Snake+Monkey, Horse+Goat. Six Harmony represents the strongest positive interaction between zodiac signs."
+        },
+        {
+          "title": "Three Harmony (Good Match)",
+          "content": "Monkey+Rat+Dragon, Pig+Rabbit+Goat, Tiger+Horse+Dog, Snake+Rooster+Ox. Three Harmony groups trust and support each other."
+        },
+        {
+          "title": "Six Clash (Needs Work)",
+          "content": "Rat+Horse, Ox+Goat, Tiger+Monkey, Rabbit+Rooster, Dragon+Dog, Snake+Pig. Clashes mean personality differences requiring more understanding."
+        }
+      ]
+    },
+    "ziwei": {
+      "title": "Ziwei Three-System Guide",
+      "sections": [
+        {
+          "title": "Palaces — 12 Life Areas",
+          "content": "The chart has 12 palaces: Self, Siblings, Spouse, Children, Wealth, Health, Travel, Friends, Career, Property, Fortune, Parents. Each represents a life area."
+        },
+        {
+          "title": "Stars — 14 Major Stars",
+          "content": "14 major stars in 4 types: Ziwei/Tianfu/Tianxiang (Leadership), Tianji/Wenchang/Wenqu (Wisdom), Qisha/Pojun/Wuqu (Action), Lianzhen/Tanlang/Taiyin (Emotion)."
+        },
+        {
+          "title": "Transformations — 4 Energies",
+          "content": "Four Transformations (Lu, Quan, Ke, Ji) result from Heavenly Stem energy: Lu (gain/opportunity), Quan (power/ability), Ke (fame/helper), Ji (obstacle/price)."
+        }
+      ]
+    },
+    "name": {
+      "title": "Name Analysis Basics",
+      "sections": [
+        {
+          "title": "Five-Grid Structure",
+          "content": "Five grids: Heaven (ancestral luck), Character (life luck), Earth (early luck), Outer (external influence), Total (overall luck). Each is calculated from stroke counts. Interactions between grids also affect fortune."
+        },
+        {
+          "title": "Tone and Rhythm",
+          "content": "The tonal pattern of a name affects how pleasant it sounds. A good name flows smoothly with rising and falling tones. Three-character names should ideally have varied tones."
+        },
+        {
+          "title": "Character Structure",
+          "content": "Chinese characters have various structures: single, left-right, top-bottom, enclosure. Balanced character structures create visual harmony. Avoid characters with too many complex strokes."
+        },
+        {
+          "title": "Yin-Yang and Five Elements",
+          "content": "Every Chinese character carries Yin-Yang and Five Element attributes. Balanced Yin-Yang and complementary elements in a name positively influence fortune."
+        },
+        {
+          "title": "Zodiac Compatibility",
+          "content": "Name characters should match the baby's zodiac sign. For example, Rat favors 'mouth' and 'roof' radicals (home), Tiger favors 'mountain', 'forest', 'king' radicals (territory), and avoids conflicting radicals."
+        },
+        {
+          "title": "Taboos and Avoidance",
+          "content": "Avoid sharing names/sounds with elders, avoid embarrassing homophones, rare characters, multi-pronunciation characters, negative-meaning characters, and consider dialect differences."
+        },
+        {
+          "title": "Three-Talent Five-Grid",
+          "content": "The Five Element interaction of Three Talents (Heaven-Character-Earth) greatly affects name quality. Generating cycles (e.g. Wood→Fire) are auspicious; overcoming cycles (e.g. Wood→Earth) need caution. Number 1,3,5,6 are lucky; 4,9,10 are unlucky."
+        }
+      ]
+    },
+    "book": {
+      "title": "I Ching Complete Guide",
+      "sections": [
+        {
+          "title": "64 Hexagrams Structure",
+          "content": "The I Ching is divided into two parts: Upper Canon (30 hexagrams, from Qian to Li) and Lower Canon (34 hexagrams, from Xian to Weiji). 384 lines total."
+        },
+        {
+          "title": "Ten Wings — Key to Understanding",
+          "content": "The Ten Wings are commentaries by Confucius and his disciples, including Tuan Zhuan, Xiang Zhuan, Xici Zhuan, Wenyan Zhuan, Shuogua Zhuan, Xugua Zhuan, and Zagua Zhuan."
+        }
+      ]
+    },
+    "footer": "💬 Fate is a reference, not a verdict. Knowing destiny helps create a better life."
   }
 }

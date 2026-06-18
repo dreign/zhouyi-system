@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useTranslations } from '@/lib/i18n';
 import Navigation from '@/components/Navigation';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 
 const TaiChiIcon = () => (
   <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -117,6 +119,14 @@ function HomeContent() {
       </header>
 
       <Navigation />
+
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <KnowledgePanel
+          title={KNOWLEDGE_CONFIGS.home.title}
+          icon={KNOWLEDGE_CONFIGS.home.icon}
+          sections={KNOWLEDGE_CONFIGS.home.sections}
+        />
+      </div>
 
       <main className="relative z-10 max-w-7xl mx-auto px-4 py-16">
         <section className="mb-16">

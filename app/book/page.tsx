@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { useTranslations } from '@/lib/i18n';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 
 const guaList = [
   { id: 1, name: '乾卦', fullName: '乾为天', symbol: '䷀', url: '/zhouyi-book/01_乾卦.html' },
@@ -83,6 +85,14 @@ export default function BookPage() {
   return (
     <div className="min-h-screen bg-[#faf5e8]">
       <Navigation activePath="/book" />
+
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <KnowledgePanel
+          title={KNOWLEDGE_CONFIGS.book.title}
+          icon={KNOWLEDGE_CONFIGS.book.icon}
+          sections={KNOWLEDGE_CONFIGS.book.sections}
+        />
+      </div>
 
       <main className="pt-20 pb-12 max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">

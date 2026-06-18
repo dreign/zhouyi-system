@@ -1,0 +1,10 @@
+export { default as KnowledgePanel } from './KnowledgePanel';
+export { default as WuxingDiagram } from './diagrams/WuxingDiagram';
+export { default as TianganDizhiTable } from './diagrams/TianganDizhiTable';
+export { default as BaguaDerivation } from './diagrams/BaguaDerivation';
+export { default as GongXingHua } from './diagrams/GongXingHua';
+export { default as SizhuStructure } from './diagrams/SizhuStructure';
+export { default as WugeStructure } from './diagrams/WugeStructure';
+export { default as GuaStructure } from './diagrams/GuaStructure';
+export { KNOWLEDGE_CONFIGS } from './knowledge-data';
+export type { KnowledgeSection, KnowledgePageConfig } from './knowledge-data';

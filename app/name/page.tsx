@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { useTranslations } from '@/lib/i18n';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 
 interface ZodiacAnalysis {
   zodiac: string;
@@ -183,6 +185,14 @@ export default function NamePage() {
   return (
     <div className="min-h-screen bg-paper taiji-bg">
       <Navigation activePath="/name" />
+
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <KnowledgePanel
+          title={KNOWLEDGE_CONFIGS.name.title}
+          icon={KNOWLEDGE_CONFIGS.name.icon}
+          sections={KNOWLEDGE_CONFIGS.name.sections}
+        />
+      </div>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex justify-center gap-4 mb-8">

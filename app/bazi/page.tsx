@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { useTranslations } from '@/lib/i18n';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 
 interface BaziPillar {
   gan: string;
@@ -118,6 +120,14 @@ export default function BaziPage() {
   return (
     <div className="min-h-screen bg-paper taiji-bg">
       <Navigation activePath="/bazi" />
+
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <KnowledgePanel
+          title={KNOWLEDGE_CONFIGS.bazi.title}
+          icon={KNOWLEDGE_CONFIGS.bazi.icon}
+          sections={KNOWLEDGE_CONFIGS.bazi.sections}
+        />
+      </div>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {!result && (

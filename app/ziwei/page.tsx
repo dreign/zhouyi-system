@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import { useTranslations } from '@/lib/i18n';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 import { ZiweiProvider, useZiwei, PalaceGrid, SanfangSizheng, LiTaiJiPanel, PalaceDetail, StarsTab, TransformationTab, Dashboard, PalaceExplanation } from '@/components/ziwei';
 
 // Tab 导航组件
@@ -153,14 +155,24 @@ function ZiweiContent() {
     e.preventDefault();
     setLoading(true);
 
-    const response = await fetch('/api/ziwei/chart', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
+    try {
+      const response = await fetch('/api/ziwei/chart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
 
-    const data = await response.json();
-    dispatch({ type: 'SET_PLATE', payload: data });
+      if (!response.ok) {
+        console.error('排盘失败:', response.statusText);
+        setLoading(false);
+        return;
+      }
+
+      const data = await response.json();
+      dispatch({ type: 'SET_PLATE', payload: data });
+    } catch (err) {
+      console.error('排盘请求异常:', err);
+    }
     setLoading(false);
   };
 
@@ -171,6 +183,14 @@ function ZiweiContent() {
   return (
     <div className="min-h-screen bg-paper taiji-bg">
       <Navigation activePath="/ziwei" />
+
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <KnowledgePanel
+          title={KNOWLEDGE_CONFIGS.ziwei.title}
+          icon={KNOWLEDGE_CONFIGS.ziwei.icon}
+          sections={KNOWLEDGE_CONFIGS.ziwei.sections}
+        />
+      </div>
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         <BirthForm formData={formData} setFormData={setFormData} loading={loading} onSubmit={handleSubmit} />

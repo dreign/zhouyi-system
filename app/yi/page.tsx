@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useTranslations } from '@/lib/i18n';
 import Navigation from '@/components/Navigation';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 
 const TaiChiIcon = () => (
   <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -344,6 +346,16 @@ export default function YiPage() {
             >
               {loading ? t('yi.divining') : t('yi.divinationComplete')}
             </button>
+          </div>
+        )}
+
+        {!result && (
+          <div className="mb-8">
+            <KnowledgePanel
+              title={KNOWLEDGE_CONFIGS.yi.title}
+              icon={KNOWLEDGE_CONFIGS.yi.icon}
+              sections={KNOWLEDGE_CONFIGS.yi.sections}
+            />
           </div>
         )}
 

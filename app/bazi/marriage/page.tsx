@@ -5,6 +5,8 @@ import Navigation from '@/components/Navigation';
 import { useTranslations } from '@/lib/i18n';
 import MarriageHeader from '@/components/bazi-marriage/MarriageHeader';
 import KnowledgeCards from '@/components/bazi-marriage/KnowledgeCards';
+import KnowledgePanel from '@/components/knowledge/KnowledgePanel';
+import { KNOWLEDGE_CONFIGS } from '@/components/knowledge/knowledge-data';
 import DualFormInput from '@/components/bazi-marriage/DualFormInput';
 import ResultScore from '@/components/bazi-marriage/ResultScore';
 import PillarComparison from '@/components/bazi-marriage/PillarComparison';
@@ -111,6 +113,13 @@ export default function MarriagePage() {
       <main className="max-w-4xl mx-auto px-4 py-8">
         <MarriageHeader />
         <KnowledgeCards />
+        <div className="mb-6">
+          <KnowledgePanel
+            title={KNOWLEDGE_CONFIGS.marriage.title}
+            icon={KNOWLEDGE_CONFIGS.marriage.icon}
+            sections={KNOWLEDGE_CONFIGS.marriage.sections}
+          />
+        </div>
         <DualFormInput
           maleData={maleData}
           femaleData={femaleData}
